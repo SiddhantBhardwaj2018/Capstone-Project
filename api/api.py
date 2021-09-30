@@ -10,7 +10,7 @@ db = firestore.client()
 user_accounts = db.collection("user_account_table")
 app = Flask(__name__)
     
-## Dummy Function for Reference    
+
 def dummy_add_db(user_account = user_accounts):
     data = {'username':'ChunkyMan','password':'Chunky123','firstName':'Chunky','lastName':'Man','wallet':[{'crypto':"Bitcoin",'amount_owned':400,'purchase_price':37},{'crypto':"Ethereum",'amount_owned':300,'purchase_price':23}],'profit':50,'currency':20}
     user_account.document().set(data)
