@@ -2,6 +2,7 @@ from flask import Flask
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
+import Market
 
 cred = credentials.Certificate("serviceAccountKey.json")
 firebase_admin.initialize_app(cred)
@@ -29,7 +30,7 @@ def get_leaderboard_page():
     
 @app.route("/Market")
 def get_market_page():
-    return {'Market':"This is the Market Page"}
+    return {'Market':Market.checking()}
 
 @app.route("/News")
 def get_news_page():
