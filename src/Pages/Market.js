@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
 
 
 function MarketTable() {
-    let history = useHistory();
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [coins, setCoins] = useState([]);
@@ -37,9 +37,7 @@ function MarketTable() {
                         <td>{coin.current_princ}</td>
                         <td>{coin.price_change_24h}</td>
                         <td>{coin.price_change_percentage_24h}</td>
-                        <td><button onClick={() => {
-                            history.push('/Information');
-                        }}> Detail </button></td>
+                        <td><button><Link to={{ pathname: `/Information`, state: { currency: coin.name } }}> Detail </Link></button></td>
                     </tr>
                 ))}
             </table>

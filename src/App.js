@@ -17,8 +17,7 @@ function App() {
           <Route exact path = "/">
             <Home/>
           </Route> 
-          <Route exact path = "/Information">
-            <Information />
+          <Route exact path="/Information" component={Information}>
           </Route>
           <Route exact path = "/Leaderboard">
             <Leaderboard />
