@@ -1,7 +1,9 @@
-from flask import Flask
+from flask import Flask, request
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
+import SignIn
+
 
 cred = credentials.Certificate("serviceAccountKey.json")
 firebase_admin.initialize_app(cred)
@@ -37,7 +39,10 @@ def get_news_page():
     
 @app.route("/SignIn")
 def get_setting_page():
-    return {'signin':"This is the SignIn Page"}
+    if(request.method == 'POST'):
+        username = request.form.get('username')
+        password = request.form.get('password')
+        return {'signin': SignIn.process_login(username, password)}
 
 @app.route("/SignUp")
 def get_setting_page():
