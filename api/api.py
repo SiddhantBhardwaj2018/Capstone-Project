@@ -35,9 +35,17 @@ def get_market_page():
 def get_news_page():
     return {'news':"This is the News Page"}
     
-@app.route("/Setting")
+@app.route("/SignIn")
 def get_setting_page():
-    return {'setting':"This is the Setting Page"}
+    return {'signin':"This is the SignIn Page"}
+
+@app.route("/SignUp")
+def get_setting_page():
+    return {'signup':"This is the SignUp Page"}
+
+@app.route("/ForgetPassword")
+def get_setting_page():
+    return {'forgetpassword':"This is the Forget Password Page"}
     
 @app.route("/Wallet")
 def get_wallet_page():

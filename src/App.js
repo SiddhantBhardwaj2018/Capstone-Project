@@ -29,8 +29,14 @@ function App() {
           <Route exact path = "/News">
             <News />
           </Route>
-          <Route exact path = "/Settings">
-            <Settings />
+          <Route exact path = "/SignIn">
+            <SignIn />
+          </Route>
+          <Route exact path="/SignOut">
+            <SignOut />
+          </Route>
+          <Route exact path="/ForgetPassword">
+            <ForgetPassword />
           </Route>
           <Route exact path = "/Wallet">
             <Wallet />
