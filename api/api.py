@@ -2,10 +2,13 @@ from flask import Flask
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
+from firebase_admin import auth
+from flask import request
 import Market
 
 cred = credentials.Certificate("serviceAccountKey.json")
 firebase_admin.initialize_app(cred)
+
 
 db = firestore.client()
 user_accounts = db.collection("user_account_table")
@@ -44,3 +47,8 @@ def get_setting_page():
 def get_wallet_page():
     return {'Wallet':"This is the Wallet Page"}
 
+@app.route("/Create_User")
+def create_user():
+    email = request.args.get('email')
+    password = request.args.get('password')
+    user = auth.create_user(email = email,password = password)
