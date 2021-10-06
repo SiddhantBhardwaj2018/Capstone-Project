@@ -5,7 +5,9 @@ import Information from './Pages/Information';
 import Leaderboard from './Pages/Leaderboard';
 import Market from './Pages/Market';
 import News from './Pages/News';
-import Settings from './Pages/Settings';
+import SignIn from './Pages/SignIn';
+import SignUp from './Pages/SignUp';
+import ForgetPassword from './Pages/ForgetPassword';
 import Wallet from './Pages/Wallet';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
@@ -32,8 +34,8 @@ function App() {
           <Route exact path = "/SignIn">
             <SignIn />
           </Route>
-          <Route exact path="/SignOut">
-            <SignOut />
+          <Route exact path="/SignUp">
+            <SignUp />
           </Route>
           <Route exact path="/ForgetPassword">
             <ForgetPassword />
