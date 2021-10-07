@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, session, make_response
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
@@ -11,7 +11,8 @@ firebase_admin.initialize_app(cred)
 db = firestore.client()
 user_accounts = db.collection("user_account_table")
 app = Flask(__name__)
-    
+
+session["user"]    
 
 def dummy_add_db(user_account = user_accounts):
     data = {'username':'ChunkyMan','password':'Chunky123','firstName':'Chunky','lastName':'Man','wallet':[{'crypto':"Bitcoin",'amount_owned':400,'purchase_price':37},{'crypto':"Ethereum",'amount_owned':300,'purchase_price':23}],'profit':50,'currency':20}
@@ -40,9 +41,18 @@ def get_news_page():
 @app.route("/SignIn")
 def get_setting_page():
     if(request.method == 'POST'):
-        username = request.form.get('username')
+        #TODO: change username to email 
+        email = request.form.get('username')
         password = request.form.get('password')
-        return {'signin': SignIn.process_login(username, password)}
+        #return {'signin': SignIn.process_login(email, password)}
+        if(SignIn.process_login(email, password) == "Successful"):
+            res = make_response("Cookies", 200)
+            res.set_cookie("user", value=email, secure=True)
+            return {'signin':"Successful"}
+        else:
+            return {'signin':"Username or Password is Incorrect"}
+
+            
 
 @app.route("/SignUp")
 def get_setting_page():
