@@ -1,19 +1,19 @@
 import React from 'react';
-import { useState } from 'react';
+import { withRouter, Redirect } from 'react-router';
+import { Link } from 'react-router-dom';
+import { AuthContext } from '../Auth';
+import app from '../firebase';
 
-function ForgetPassword() {
-    const [email, setEmail] = useState('');
+function ForgetPassword({ history }) {
     const handleSubmit = (e) => {
-        const myRequest = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email: email })
-        };
-        console.log(myRequest)
-        fetch('/ForgetPassword', myRequest)
-            .then(response => response.json())
-            .then(data => console.log(data));
         e.preventDefault();
+        const { email } = e.target.elements;
+        try{
+            app.auth().sendPasswordResetEmail(email.value);
+            history.push("/")
+        }catch(error){
+            alert(error)
+        }
     }
 
     return (
@@ -26,12 +26,10 @@ function ForgetPassword() {
             <input
                 name='email'
                 type='email'
-                value={email}
-                onChange={e => setEmail(e.target.value)}
             />
             <br />
             <button type="submit">Submit</button>
         </form>
     )
 }
-export default ForgetPassword;
+export default withRouter(ForgetPassword);

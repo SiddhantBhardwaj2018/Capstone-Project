@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import app from '../firebase';
 
 
 function Information(){
@@ -10,6 +11,7 @@ function Information(){
     return (
         <div>
             <h1>Hi</h1>
+            <button onClick = {() => app.auth().signOut()}>Sign Out</button>
         </div>
     )
 }

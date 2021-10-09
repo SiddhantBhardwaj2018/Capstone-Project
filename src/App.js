@@ -10,21 +10,20 @@ import SignUp from './Pages/SignUp';
 import ForgetPassword from './Pages/ForgetPassword';
 import Wallet from './Pages/Wallet';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { AuthProvider } from './Auth';
+import  PrivateRoute  from './PrivateRoute'
 
 function App() {
   return (
+    <AuthProvider>
     <Router>
       <div className = "App">
         <Switch>
           <Route exact path = "/">
             <Home/>
           </Route> 
-          <Route exact path = "/Information">
-            <Information />
-          </Route>
-          <Route exact path = "/Leaderboard">
-            <Leaderboard />
-          </Route>
+          <PrivateRoute exact path = "/Information" component = {Information} />
+          <PrivateRoute exact path = "/Leaderboard" component = {Leaderboard}/>
           <Route exact path = "/Market">
             <Market />
           </Route>
@@ -37,15 +36,14 @@ function App() {
           <Route exact path="/SignUp">
             <SignUp />
           </Route>
-          <Route exact path="/ForgetPassword">
+          <Route exact path="/ForgotPassword">
             <ForgetPassword />
           </Route>
-          <Route exact path = "/Wallet">
-            <Wallet />
-          </Route>
+          <PrivateRoute exact path = "/Wallet" component = {Wallet} />
         </Switch>
       </div>
     </Router>
+    </AuthProvider>
   );
 }
 
