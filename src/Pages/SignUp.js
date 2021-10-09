@@ -1,15 +1,25 @@
 import React, { useCallback } from 'react';
 import { useState } from 'react';
 import { withRouter } from 'react-router';
-import app from '../firebase';
+import  app from '../firebase';
+
+const db = app.firestore()
 
 function SignUp({ history }) {
     const handleSubmit = useCallback(async event => {
         event.preventDefault();
-        const { email, password } = event.target.elements;
+        const { firstname,lastname, username, email, password } = event.target.elements;
         try{
-            await app.auth().createUserWithEmailAndPassword(email.value,password.value)
-            console.log("First Step achieved")
+            await app.auth().createUserWithEmailAndPassword(email.value,password.value).then(cred => {
+                return db.collection("users").doc(cred.user.uid).set({
+                    username: username.value,
+                    firstname: firstname.value,
+                    lastname: lastname.value,
+                    amount_balance: 1500,
+                    wallet: {},
+                    profit: 0
+                })
+            })
             history.push("/")
         }catch(error){
             alert(error)
@@ -18,6 +28,24 @@ function SignUp({ history }) {
 
     return (
         <form onSubmit={e => { handleSubmit(e) }}>
+             <label>FirstName</label>
+            <input
+                name='firstname'
+                type='text'
+            />
+            <br />
+            <label>LastName</label>
+            <input
+                name='lastname'
+                type='text'
+            />
+            <br />
+            <label>Username</label>
+            <input
+                name='username'
+                type='text'
+            />
+            <br />
             <label>Email</label>
             <input
                 name='email'
