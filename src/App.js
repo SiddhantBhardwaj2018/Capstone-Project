@@ -9,6 +9,7 @@ import SignIn from './Pages/SignIn';
 import SignUp from './Pages/SignUp';
 import ForgetPassword from './Pages/ForgetPassword';
 import Wallet from './Pages/Wallet';
+import Header from './Pages/Components/Header';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { AuthProvider } from './Auth';
 import  PrivateRoute  from './PrivateRoute'
@@ -17,28 +18,17 @@ function App() {
   return (
     <AuthProvider>
     <Router>
-      <div className = "App">
+        <div className="App">
+        <Header />
         <Switch>
-          <Route exact path = "/">
-            <Home/>
-          </Route> 
+          <Route exact path="/" component={Home} />
           <PrivateRoute exact path = "/Information" component = {Information} />
           <PrivateRoute exact path = "/Leaderboard" component = {Leaderboard}/>
-          <Route exact path = "/Market">
-            <Market />
-          </Route>
-          <Route exact path = "/News">
-            <News />
-          </Route>
-          <Route exact path = "/SignIn">
-            <SignIn />
-          </Route>
-          <Route exact path="/SignUp">
-            <SignUp />
-          </Route>
-          <Route exact path="/ForgotPassword">
-            <ForgetPassword />
-          </Route>
+          <Route exact path="/Market" component={Market} />
+          <Route exact path="/News" component={News} />
+          <Route exact path="/SignIn" component={SignIn} />
+          <Route exact path="/SignUp" component={SignUp} />
+          <Route exact path="/ForgotPassword" component={ForgetPassword} />
           <PrivateRoute exact path = "/Wallet" component = {Wallet} />
         </Switch>
       </div>
