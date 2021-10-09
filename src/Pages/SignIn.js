@@ -45,7 +45,7 @@ function SignIn({ history }) {
             <label>New for Cryptics?</label>
             <button><Link to="/SignUp">Sign Up!</Link></button>
             <br />
-            <Link to="/ForgetPassword">Forget Password</Link>
+            <Link to="/ForgotPassword">Forget Password</Link>
          </div>
     )
 }
