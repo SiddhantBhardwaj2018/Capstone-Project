@@ -20,7 +20,7 @@ function SignUp({ history }) {
                     profit: 0
                 })
             })
-            history.push("/")
+            history.push("/Information")
         }catch(error){
             alert(error)
         }
