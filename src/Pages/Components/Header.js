@@ -14,7 +14,7 @@ function Header() {
                         <Nav.Link href="/Market">Market</Nav.Link>
                         <Nav.Link href="/News">News</Nav.Link>
                         <Nav.Link href="/Leaderboard">Leaderboard</Nav.Link>
-                        <Nav.Link href="/Wallet">Leaderboard</Nav.Link>
+                        <Nav.Link href="/Wallet">Wallet</Nav.Link>
                     </Nav>
                 </Container>
             </Navbar>);
