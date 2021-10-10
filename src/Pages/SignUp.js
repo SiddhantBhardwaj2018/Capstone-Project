@@ -17,7 +17,8 @@ function SignUp({ history }) {
                     lastname: lastname.value,
                     amount_balance: 1500,
                     wallet: {},
-                    profit: 0
+                    profit: 0,
+                    receipts: []
                 })
             })
             history.push("/Information")
