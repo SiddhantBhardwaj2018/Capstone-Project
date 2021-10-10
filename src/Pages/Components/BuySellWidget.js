@@ -4,7 +4,7 @@ import RangeSlider from 'react-bootstrap-range-slider';
 import { Tabs, Tab, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 
-function BuySellWidget() {
+function BuySellWidget(props){
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [ownedProperty, setOwnedProperty] = useState(0);
@@ -30,7 +30,7 @@ function BuySellWidget() {
         const myRequest = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ amount: value })
+            body: JSON.stringify({ coin_name: props.name, amount: value, method: index, username: 'xinyi', date: new Date(), price:props.price})
         };/*
         console.log(myRequest)
         fetch('/SignIn', myRequest)
