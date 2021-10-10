@@ -9,7 +9,7 @@ cred = credentials.Certificate("serviceAccountKey.json")
 firebase_admin.initialize_app(cred)
 
 db = firestore.client()
-user_accounts = db.collection("user_account_table")
+user_accounts = db.collection("users")
 app = Flask(__name__)
     
 
