@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
@@ -6,12 +6,14 @@ from firebase_admin import auth
 from flask import request
 import Market
 
+import Information
+
 cred = credentials.Certificate("serviceAccountKey.json")
 firebase_admin.initialize_app(cred)
 
 
 db = firestore.client()
-user_accounts = db.collection("user_account_table")
+user_accounts = db.collection("users")
 app = Flask(__name__)
     
 
@@ -25,7 +27,20 @@ def get_home_page():
     
 @app.route("/Information")
 def get_information_page():
-    return {'info':"This is the Information Page"}
+    """If buy/sell form is completed the transaction is then processed on the 
+    back-end by talking to the database and adjusting the user's wallet according
+    to the amount of crypto purchased with virtual currency."""
+    if(request.method == 'POST'):
+        """TODO: tell whether user has clicked the buy or sell submit button and
+        retrieve the value from the slider as well as the user's username
+        by using a cookie or session"""
+        transaction_amount = request.form.get('transaction_submit')
+        return {'info': Information.process_transaction(transaction_amount)}
+    
+    """retrieves the amount of virtual currency so front-end
+    can display a slider with min to max of tradable virtual currency"""
+    return {'info': Information.retrieve_virtual_currency()}
+
 
 @app.route("/Leaderboard")
 def get_leaderboard_page():

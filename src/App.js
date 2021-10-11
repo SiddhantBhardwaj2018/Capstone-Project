@@ -8,6 +8,8 @@ import News from './Pages/News';
 import Settings from './Pages/Settings';
 import Wallet from './Pages/Wallet';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.css'; // or include from a CDN
+import 'react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css';
 
 function App() {
   return (
