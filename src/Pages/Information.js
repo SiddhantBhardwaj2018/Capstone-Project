@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import BuySellWidget from './Components/BuySellWidget';
 import { useLocation } from 'react-router-dom';
+import app from '../firebase';
+
 
 function Information(props) {
     const location = useLocation();
@@ -13,9 +15,9 @@ function Information(props) {
     const [changeRate, setChangeRate] = useState(0)
 
     useEffect(() => {
-        console.log("Hello");
-        fetch("/Information").then(res => res.json()).then(data => setInformation(data.info))
+        fetch("https://api.coingecko.com/api/v3/coins/cardano").then(res => res.json()).then(data => console.log(data))
     },[])
+
     
 
     fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin&order=market_cap_desc&per_page=100&page=1')
@@ -47,6 +49,7 @@ function Information(props) {
                 <h1>{price}</h1>
                 <h1>{changeRate}%</h1>
                 <BuySellWidget coinInfo={ coinInfo }/>
+                <button onClick = {() => app.auth().signOut()}>Sign Out</button>
            </div>
             
         );

@@ -15,7 +15,7 @@ firebase_admin.initialize_app(cred)
 db = firestore.client()
 user_accounts = db.collection("users")
 app = Flask(__name__)
-    
+
 
 def dummy_add_db(user_account = user_accounts):
     data = {'username':'ChunkyMan','password':'Chunky123','firstName':'Chunky','lastName':'Man','wallet':[{'crypto':"Bitcoin",'amount_owned':400,'purchase_price':37},{'crypto':"Ethereum",'amount_owned':300,'purchase_price':23}],'profit':50,'currency':20}
@@ -53,11 +53,7 @@ def get_market_page():
 @app.route("/News")
 def get_news_page():
     return {'news':"This is the News Page"}
-    
-@app.route("/Setting")
-def get_setting_page():
-    return {'setting':"This is the Setting Page"}
-    
+        
 @app.route("/Wallet")
 def get_wallet_page():
     return {'Wallet':"This is the Wallet Page"}

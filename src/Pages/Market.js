@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
+import app from '../firebase';
 
 
-function MarketTable() {
+function Market() {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [coins, setCoins] = useState([]);
@@ -29,6 +30,7 @@ function MarketTable() {
         return <div>Loading...</div>;
     } else {
         return (
+            <div><button onClick = {() => app.auth().signOut()}></button>
             <table>
                 {coins.map(coin => (
                     <tr>
@@ -41,8 +43,9 @@ function MarketTable() {
                     </tr>
                 ))}
             </table>
+            </div>
         );
     }
 }
 
-export default MarketTable;
+export default Market;
