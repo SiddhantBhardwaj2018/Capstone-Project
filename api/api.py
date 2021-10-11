@@ -30,16 +30,16 @@ def get_information_page():
     """If buy/sell form is completed the transaction is then processed on the 
     back-end by talking to the database and adjusting the user's wallet according
     to the amount of crypto purchased with virtual currency."""
+    if(request.method == 'GET'):
+        """retrieves the amount of virtual currency so front-end
+        can display a slider with min to max of tradable virtual currency"""
+        return {'info': Information.retrieve_virtual_currency()}
     if(request.method == 'POST'):
-        """TODO: tell whether user has clicked the buy or sell submit button and
-        retrieve the value from the slider as well as the user's username
-        by using a cookie or session"""
-        transaction_amount = request.form.get('transaction_submit')
-        return {'info': Information.process_transaction(transaction_amount)}
-    
-    """retrieves the amount of virtual currency so front-end
-    can display a slider with min to max of tradable virtual currency"""
-    return {'info': Information.retrieve_virtual_currency()}
+        try:
+            Information.process_transaction(user_accounts, request.json["trade"])
+            return {'info' : 'Successfully traded'}
+        except:
+            return {'info' : 'Unsuccessfully traded'}
 
 
 @app.route("/Leaderboard")
