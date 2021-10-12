@@ -7,11 +7,11 @@ def process_transaction(user_accounts, trade_data):
     coin_name = trade_data["coin_name"]
     method = trade_data["method"]
     transaction_amount_usd = trade_data["amount"]
-    username = trade_data["username"]
+    uid = trade_data["uid"]
     date_of_transaction = trade_data["date"]
-    cp_of_transaction = trade_data["current_price"]
+    cp_of_transaction = trade_data["price"]  #Note: This is aka current price
     
-    doc = user_accounts.document(username)
+    doc = user_accounts.document(uid)
     transacted_coins = transaction_amount_usd / cp_of_transaction
 
     Wallet = doc.get("Wallet")
@@ -43,6 +43,6 @@ def process_transaction(user_accounts, trade_data):
 def create_transaction_receipt(Wallet):
     pass
 
-def get_wallet_vc(user_accounts, username):
-    vc = user_accounts.document(username).get("virtual_currency")
+def retrieve_virtual_currency(user_accounts, uid):
+    vc = user_accounts.document(uid).get("virtual_currency")
     return vc
