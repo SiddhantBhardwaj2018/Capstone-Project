@@ -44,5 +44,7 @@ def create_transaction_receipt(Wallet):
     pass
 
 def retrieve_virtual_currency(user_accounts, uid):
-    vc = user_accounts.document(uid).get("amount_balance")
+    vc = user_accounts.document(uid).get(field_paths={'amount_balance'}).to_dict().get('amount_balance')
+    #users_ref.get(field_paths={'Balance'}).to_dict().get('Balance')
+    #vc = db.collection("app").document("users").collection(uid).document("notifications")
     return vc
