@@ -14,7 +14,7 @@ function BuySellWidget(props){
     const {currentUser} = useContext(AuthContext);
 
 
-    fetch("/Information?uid=" + currentUser.uid + "&coin=" + props.coin)
+    fetch("/Information?uid=" + currentUser.uid)
         .then(res => res.json())
         .then(
             (data) => {

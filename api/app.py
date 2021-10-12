@@ -33,7 +33,7 @@ def get_information_page():
     if(request.method == 'GET'):
         """retrieves the amount of virtual currency so front-end
         can display a slider with min to max of tradable virtual currency"""
-        return {'info': Information.retrieve_virtual_currency(user_accounts, request.json["uid"])}
+        return {'info': Information.retrieve_virtual_currency(user_accounts, request.args.get("uid"))}
     if(request.method == 'POST'):
         try:
             Information.process_transaction(user_accounts, request.json["trade"])
