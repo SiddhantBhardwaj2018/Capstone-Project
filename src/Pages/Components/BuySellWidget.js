@@ -27,12 +27,12 @@ function BuySellWidget(props){
 
 
     const handleSubmit = (e) => {
-        const myRequest = {
+        const buySellRequest = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ coin_name: props.name, amount: value, method: index, username: 'xinyi', date: new Date(), price:props.price})
+            body: JSON.stringify({ coin_name: props.coin, amount: value, method: index, username: 'xinyi', date: new Date(), price:props.price})
         };/*
-        console.log(myRequest)
+        console.log(buySellRequest)
         fetch('/SignIn', myRequest)
         .then(response => response.json())
         .then(data => console.log(data));*/
