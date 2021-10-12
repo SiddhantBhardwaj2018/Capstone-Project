@@ -3,8 +3,9 @@
     "",
     "\\api",
     "\\src",
-    "\\src\\Pages"
+    "\\src\\Pages",
+    "\\src\\Pages\\Components"
   ],
-  "SelectedNode": "\\src\\Pages\\SignUp.js",
+  "SelectedNode": "\\api\\app.py",
   "PreviewInSolutionExplorer": false
 }

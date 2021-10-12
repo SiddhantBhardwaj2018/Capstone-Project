@@ -27,7 +27,19 @@ def get_home_page():
     
 @app.route("/Information")
 def get_information_page():
-    return {'property':50}
+    """If buy/sell form is completed the transaction is then processed on the 
+    back-end by talking to the database and adjusting the user's wallet according
+    to the amount of crypto purchased with virtual currency."""
+    if(request.method == 'GET'):
+        """retrieves the amount of virtual currency so front-end
+        can display a slider with min to max of tradable virtual currency"""
+        return {'info': Information.retrieve_virtual_currency(user_accounts, request.json["uid"])}
+    if(request.method == 'POST'):
+        try:
+            Information.process_transaction(user_accounts, request.json["trade"])
+            return {'info' : 'Successfully traded'}
+        except:
+            return {'info' : 'Unsuccessfully traded'}
 
 
 @app.route("/Leaderboard")

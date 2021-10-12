@@ -1,26 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import BuySellWidget from './Components/BuySellWidget';
 import { useLocation } from 'react-router-dom';
-import app from '../firebase';
-
 
 function Information(props) {
     const location = useLocation();
-    const [Information,setInformation] = useState("")
+    const [Information, setInformation] = useState("")
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [name, setName] = useState("")
     const [image, setImage] = useState("")
     const [price, setPrice] = useState(0)
     const [changeRate, setChangeRate] = useState(0)
+    let coinName = props.location.state.currency;
+    coinName = coinName.toLowerCase();
 
-    useEffect(() => {
-        fetch("https://api.coingecko.com/api/v3/coins/cardano").then(res => res.json()).then(data => console.log(data))
-    },[])
-
-    
-
-    fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin&order=market_cap_desc&per_page=100&page=1')
+    fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=' + coinName + '&order=market_cap_desc&per_page=100&page=1')
     .then(res => res.json())
     .then(
         (data) => {
@@ -34,7 +28,7 @@ function Information(props) {
             setIsLoaded(true);
             setError(error);
         }
-    )
+        )
 
     if (error) {
         return <div>Error: {error.message}</div>;
@@ -49,11 +43,10 @@ function Information(props) {
                 <h1>{price}</h1>
                 <h1>{changeRate}%</h1>
                 <BuySellWidget coinInfo={ coinInfo }/>
-                <button onClick = {() => app.auth().signOut()}>Sign Out</button>
            </div>
             
-        );
+            );
+        }
     }
-}
 
 export default Information;

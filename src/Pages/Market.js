@@ -30,20 +30,18 @@ function Market() {
         return <div>Loading...</div>;
     } else {
         return (
-            <div><button onClick = {() => app.auth().signOut()}></button>
             <table>
                 {coins.map(coin => (
                     <tr>
                         <td><img src={coin.image} /></td>
                         <td><h1>{coin.name}</h1><h5>{coin.symbol}</h5></td>
-                        <td>{coin.current_princ}</td>
+                        <td>{coin.current_price}</td>
                         <td>{coin.price_change_24h}</td>
                         <td>{coin.price_change_percentage_24h}</td>
                         <td><button><Link to={{ pathname: `/Information`, state: { currency: coin.name } }}> Detail </Link></button></td>
                     </tr>
                 ))}
             </table>
-            </div>
         );
     }
 }

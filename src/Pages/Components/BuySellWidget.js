@@ -1,8 +1,9 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useContext } from 'react';
 import RangeSlider from 'react-bootstrap-range-slider';
 import { Tabs, Tab, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
+import {AuthContext} from '../../Auth';
 
 function BuySellWidget(props){
     const [error, setError] = useState(null);
@@ -10,9 +11,10 @@ function BuySellWidget(props){
     const [ownedProperty, setOwnedProperty] = useState(0);
     const [value, setValue] = useState(0);
     const [index, setIndex] = useState(0);
+    const {currentUser} = useContext(AuthContext);
 
 
-    fetch("/Information")
+    fetch("/Information?uid=" + currentUser.uid + "&coin=" + props.coin)
         .then(res => res.json())
         .then(
             (data) => {
@@ -25,12 +27,11 @@ function BuySellWidget(props){
             });
 
 
-
     const handleSubmit = (e) => {
         const buySellRequest = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ coin_name: props.coin, amount: value, method: index, username: 'xinyi', date: new Date(), price:props.price})
+            body: JSON.stringify({ 'trade': { coin_name: props.coin, amount: value, method: (index == 0) ? 'buy' : 'sell', uid: currentUser.uid, date: new Date(), price: props.price } })
         };/*
         console.log(buySellRequest)
         fetch('/SignIn', myRequest)
