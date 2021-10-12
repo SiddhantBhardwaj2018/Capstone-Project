@@ -18,8 +18,8 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "venv\\Scripts\\activate && react-scripts start",
-    "start-api": "cd api &&  venv\\Scripts\\activate &&  flask run --no-debugger",
+    "start": "py -m venv venv && venv\\Scripts\\activate && react-scripts start",
+    "start-api": "cd api && py -m venv venv && venv\\Scripts\\activate &&  flask run --no-debugger",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
