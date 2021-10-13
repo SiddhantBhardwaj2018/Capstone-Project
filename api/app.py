@@ -38,9 +38,9 @@ def get_information_page():
     if(request.method == 'POST'):
         try:
             Information.process_transaction(user_accounts, request.json["trade"])
-            return {'info' : 'Successfully traded'}
+            return {'info_trade' : 'Successfully traded'}
         except:
-            return {'info' : 'Unsuccessfully traded'}
+            return {'info_trade' : 'Unsuccessfully traded'}
 
 
 @app.route("/Leaderboard")
@@ -59,8 +59,3 @@ def get_news_page():
 def get_wallet_page():
     return {'Wallet':"This is the Wallet Page"}
 
-@app.route("/Create_User")
-def create_user():
-    email = request.args.get('email')
-    password = request.args.get('password')
-    user = auth.create_user(email = email,password = password)

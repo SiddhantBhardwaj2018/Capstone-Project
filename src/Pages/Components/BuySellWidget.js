@@ -12,13 +12,15 @@ function BuySellWidget(props){
     const [value, setValue] = useState(0);
     const [index, setIndex] = useState(0);
     const {currentUser} = useContext(AuthContext);
-
+    const date = new Date();
+    const tradeDate = [date.getMonth()+1,date.getDate(),date.getFullYear()];
 
     fetch("/Information?uid=" + currentUser.uid)
         .then(res => res.json())
         .then(
             (data) => {
-                setOwnedProperty(data.property);
+                console.log(data);
+                setOwnedProperty(data.info);
                 setIsLoaded(true);
             },
             (error) => {
@@ -31,12 +33,12 @@ function BuySellWidget(props){
         const buySellRequest = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 'trade': { coin_name: props.coin, amount: value, method: (index == 0) ? 'buy' : 'sell', uid: currentUser.uid, date: new Date(), price: props.price } })
-        };/*
+            body: JSON.stringify({ 'trade': { coin_name: props.coin, amount: value, method: (index == 0) ? 'Buy' : 'Sell', uid: currentUser.uid, date: tradeDate, price: props.price } })
+        };
         console.log(buySellRequest)
-        fetch('/SignIn', myRequest)
+        fetch('/SignIn', buySellRequest)
         .then(response => response.json())
-        .then(data => console.log(data));*/
+        .then(data => console.log(data));
         e.preventDefault();
     }
 
