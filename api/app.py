@@ -26,7 +26,7 @@ def dummy_add_db(user_account = user_accounts):
 def get_home_page():
     return {'home':"This is the Home Page"}
     
-@app.route("/Information")
+@app.route("/Information",methods = ['GET','POST'])
 def get_information_page():
     """If buy/sell form is completed the transaction is then processed on the 
     back-end by talking to the database and adjusting the user's wallet according
@@ -34,8 +34,10 @@ def get_information_page():
     if(request.method == 'GET'):
         """retrieves the amount of virtual currency so front-end
         can display a slider with min to max of tradable virtual currency"""
+        #print("inside retrive vc get")
         return {'info': Information.retrieve_virtual_currency(user_accounts, request.args.get("uid"))}
     if(request.method == 'POST'):
+        #print("Before transaction")
         try:
             Information.process_transaction(user_accounts, request.json["trade"])
             return {'info_trade' : 'Successfully traded'}

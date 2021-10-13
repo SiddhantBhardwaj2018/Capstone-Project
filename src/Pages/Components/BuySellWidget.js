@@ -33,10 +33,9 @@ function BuySellWidget(props){
         const buySellRequest = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 'trade': { coin_name: props.coin, amount: value, method: (index == 0) ? 'Buy' : 'Sell', uid: currentUser.uid, date: tradeDate, price: props.price } })
+            body: JSON.stringify({ 'trade': { coin_name: props.coinInfo.coin, amount: value, method: (index == 0) ? 'Buy' : 'Sell', uid: currentUser.uid, date: tradeDate, price: props.coinInfo.price } })
         };
-        console.log(buySellRequest)
-        fetch('/SignIn', buySellRequest)
+        fetch('/Information', buySellRequest)
         .then(response => response.json())
         .then(data => console.log(data));
         e.preventDefault();
@@ -49,7 +48,6 @@ function BuySellWidget(props){
     } else {
         return (
            <Tabs
-                defaultIndex={0}
                 selectedIndex={index}
                 onSelect={(index) => setIndex(index)}
                 style={{ width: 500 }}

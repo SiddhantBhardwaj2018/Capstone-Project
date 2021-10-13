@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import { AuthContext } from '../../Auth';
 import logo from '../../logo.jpg';
+import app from '../../firebase';
+
 
 function Header() {
     const { currentUser } = useContext(AuthContext)
@@ -17,6 +19,7 @@ function Header() {
                         <Nav.Link href="/Wallet">Wallet</Nav.Link>
                     </Nav>
                 </Container>
+                <button onClick = {() => app.auth().signOut()}>Sign Out</button>
             </Navbar>);
     }
     else {

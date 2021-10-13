@@ -3,48 +3,49 @@
         by using a cookie or session"""
 
 def process_transaction(user_accounts, trade_data):
-    #trade_data = request.json["trade"]
-    coin_name = trade_data["coin_name"]
-    method = trade_data["method"]
-    transaction_amount_usd = trade_data["amount"]
-    uid = trade_data["uid"]
-    date_of_transaction = trade_data["date"]
-    cp_of_transaction = trade_data["price"]  #Note: This is aka current price
+    coin_name = trade_data['coin_name']
+    method = trade_data['method']
+    transaction_amount_vc = float(trade_data['amount'])
+    uid = trade_data['uid']
+    date_of_transaction = trade_data['date']
+    cp_of_transaction = trade_data['price']  #Note: This is aka current price
+    
     
     doc = user_accounts.document(uid)
-    transacted_coins = transaction_amount_usd / cp_of_transaction
+    transacted_coins = float(transaction_amount_vc) / float(cp_of_transaction)
 
-    Wallet = doc.get("Wallet")
-    #TODO: would this be as below or doc.get("Wallet"[coin_name]) [[STACK OVERFLOW SAYS IT IS]]
-    Coin_in_Wallet = doc.get(Wallet[coin_name])
-    Amount_of_Coin_in_Wallet = doc.get(Wallet[coin_name]["current_amount"])
+    Wallet = doc.get(field_paths={'wallet'})
+    Wallet_dict = doc.get(field_paths={'wallet'}).to_dict()
 
-    if(method == "Buy"):
-        #IF THE USER ALREADY OWNS A CERTAIN CRYPTO
-        if(Coin_in_Wallet.exists):
-            updated_coins = Amount_of_Coin_in_Wallet + transacted_coins
-            #TODO: I could write code below as: Amount_of_Coin_in_Wallet.update(updated_coins)
-            Coin_in_Wallet.update({"current_amount" : updated_coins})
+    if(method == 'Buy'):
+        if(coin_name in Wallet_dict['wallet']):
+            updated_vc = float(user_accounts.document(uid).get(field_paths={'amount_balance'}).to_dict().get('amount_balance')) - transaction_amount_vc
+            doc.update({'amount_balance' : updated_vc})
+            updated_coins = float(Wallet_dict['wallet'][coin_name]) + float(transacted_coins)
+            doc.set({'wallet': {coin_name : updated_coins}}, merge=True)
             #TODO: Add Receipt of Transaction HERE!!!!!!
         #IF THE USER DOES NOT ALREADY OWN THAT CERTAIN CRYPTO
         else:
-            Wallet.update({coin_name : {"current_amount" : transacted_coins}})
+            updated_vc = float(user_accounts.document(uid).get(field_paths={'amount_balance'}).to_dict().get('amount_balance')) - transaction_amount_vc
+            doc.update({'amount_balance' : updated_vc}) 
+            doc.set({'wallet': {coin_name : transacted_coins}}, merge=True)
             #TODO: Add Receipt of Transaction HERE!!!!!!
     else:
-        updated_coins = Wallet[coin_name]["Amount"] - transacted_coins
-        #TODO: I could write code below as: Amount_of_Coin_in_Wallet.update(updated_coins)
-        Coin_in_Wallet.update({"current_amount" : updated_coins})
-        #TODO: Add Receipt of Transaction HERE!!!!!!
+        if(float(Wallet_dict['wallet'][coin_name]) - float(transacted_coins) >= 0):
+            #print("I'm in the sell method")
+            updated_coins = float(Wallet_dict['wallet'][coin_name]) - float(transacted_coins)
+            doc.set({'wallet': {coin_name : updated_coins}}, merge=True)
+            updated_vc = float(user_accounts.document(uid).get(field_paths={'amount_balance'}).to_dict().get('amount_balance')) + transaction_amount_vc
+            doc.update({'amount_balance' : updated_vc})
+            #print("Sale was completed!")
+            #TODO: Implement Profit calculation here
+            #TODO: Add Receipt of Transaction HERE!!!!!!
 
     
-    #doc.update(wallet_update)
-    date_changed = Wallet[coin_name]["date_bought"]
-
-def create_transaction_receipt(Wallet):
-    pass
+    
 
 def retrieve_virtual_currency(user_accounts, uid):
-    vc = user_accounts.document(uid).get(field_paths={'amount_balance'}).to_dict().get('amount_balance')
-    #users_ref.get(field_paths={'Balance'}).to_dict().get('Balance')
-    #vc = db.collection("app").document("users").collection(uid).document("notifications")
-    return vc
+    vc_buy = user_accounts.document(uid).get(field_paths={'amount_balance'}).to_dict().get('amount_balance')
+    #vc_sell = float(doc.get(field_paths={'wallet'}).to_dict()['wallet'][coin_name]) * current_price
+    #return {'buy' : vc_buy, 'sell' : vc_sell}
+    return vc_buy
