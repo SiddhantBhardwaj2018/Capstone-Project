@@ -4,7 +4,6 @@ import { useLocation } from 'react-router-dom';
 
 function Information(props) {
     const location = useLocation();
-    const [Information, setInformation] = useState("")
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [name, setName] = useState("")
