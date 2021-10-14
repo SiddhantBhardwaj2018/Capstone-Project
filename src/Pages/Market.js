@@ -38,7 +38,7 @@ function Market() {
                         <td>{coin.current_price}</td>
                         <td>{coin.price_change_24h}</td>
                         <td>{coin.price_change_percentage_24h}</td>
-                        <td><button><Link to={{ pathname: `/Information`, state: { currency: coin.name } }}> Detail </Link></button></td>
+                        <td><button><Link to={{ pathname: `/Information`, state: { currency: coin.id } }}> Detail </Link></button></td>
                     </tr>
                 ))}
             </table>
