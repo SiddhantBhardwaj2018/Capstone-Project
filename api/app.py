@@ -4,8 +4,8 @@ from firebase_admin import credentials
 from firebase_admin import firestore
 from flask import request
 import Market
-
 import Information
+import Leaderboard
 
 cred = credentials.Certificate("serviceAccountKey.json")
 firebase_admin.initialize_app(cred)
@@ -47,7 +47,7 @@ def get_information_page():
 
 @app.route("/Leaderboard")
 def get_leaderboard_page():
-    return {'leaderboard':"This is the Leaderboard Page"}
+    return {'leaderboard':Leaderboard.generate_leaderboard()}
     
 @app.route("/Market")
 def get_market_page():
