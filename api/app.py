@@ -14,9 +14,6 @@ firebase_admin.initialize_app(cred)
 db = firestore.client()
 user_accounts = db.collection("users")
 app = Flask(__name__)
-docs = user_accounts.stream()
-for doc in docs:
-    print(doc.to_dict()) 
 
 def dummy_add_db(user_account = user_accounts):
     data = {'username':'ChunkyMan','password':'Chunky123','firstName':'Chunky','lastName':'Man','wallet':[{'crypto':"Bitcoin",'amount_owned':400,'purchase_price':37},{'crypto':"Ethereum",'amount_owned':300,'purchase_price':23}],'profit':50,'currency':20}
