@@ -4,8 +4,8 @@ from firebase_admin import credentials
 from firebase_admin import firestore
 from flask import request
 import Market
-
 import Information
+import Leaderboard
 
 cred = credentials.Certificate("serviceAccountKey.json")
 firebase_admin.initialize_app(cred)
@@ -14,9 +14,6 @@ firebase_admin.initialize_app(cred)
 db = firestore.client()
 user_accounts = db.collection("users")
 app = Flask(__name__)
-docs = user_accounts.stream()
-for doc in docs:
-    print(doc.to_dict()) 
 
 def dummy_add_db(user_account = user_accounts):
     data = {'username':'ChunkyMan','password':'Chunky123','firstName':'Chunky','lastName':'Man','wallet':[{'crypto':"Bitcoin",'amount_owned':400,'purchase_price':37},{'crypto':"Ethereum",'amount_owned':300,'purchase_price':23}],'profit':50,'currency':20}
@@ -47,7 +44,7 @@ def get_information_page():
 
 @app.route("/Leaderboard")
 def get_leaderboard_page():
-    return {'leaderboard':"This is the Leaderboard Page"}
+    return {'leaderboard':Leaderboard.generate_leaderboard(user_accounts)}
     
 @app.route("/Market")
 def get_market_page():
