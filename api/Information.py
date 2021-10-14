@@ -1,48 +1,85 @@
+from google.cloud import firestore
+from google.cloud.firestore_v1.transforms import Increment
 """TODO: tell whether user has clicked the buy or sell submit button and
         retrieve the value from the slider as well as the user's username
         by using a cookie or session"""
 
 def process_transaction(user_accounts, trade_data):
-    #trade_data = request.json["trade"]
-    coin_name = trade_data["coin_name"]
-    method = trade_data["method"]
-    transaction_amount_usd = trade_data["amount"]
-    uid = trade_data["uid"]
-    date_of_transaction = trade_data["date"]
-    cp_of_transaction = trade_data["price"]  #Note: This is aka current price
+    coin_name = trade_data['coin_name']
+    method = trade_data['method']
+    transaction_amount_vc = float(trade_data['amount'])
+    uid = trade_data['uid']
+    date_of_transaction = trade_data['date']
+    cp_of_transaction = trade_data['price']  #Note: This is aka current price
+    
     
     doc = user_accounts.document(uid)
-    transacted_coins = transaction_amount_usd / cp_of_transaction
+    transacted_coins = float(transaction_amount_vc) / float(cp_of_transaction)
 
-    Wallet = doc.get("Wallet")
-    #TODO: would this be as below or doc.get("Wallet"[coin_name]) [[STACK OVERFLOW SAYS IT IS]]
-    Coin_in_Wallet = doc.get(Wallet[coin_name])
-    Amount_of_Coin_in_Wallet = doc.get(Wallet[coin_name]["current_amount"])
+    Wallet = doc.get(field_paths={'wallet'})
+    Wallet_dict = doc.get(field_paths={'wallet'}).to_dict()
 
-    if(method == "Buy"):
-        #IF THE USER ALREADY OWNS A CERTAIN CRYPTO
-        if(Coin_in_Wallet.exists):
-            updated_coins = Amount_of_Coin_in_Wallet + transacted_coins
-            #TODO: I could write code below as: Amount_of_Coin_in_Wallet.update(updated_coins)
-            Coin_in_Wallet.update({"current_amount" : updated_coins})
+    if(method == 'Buy'):
+        if(coin_name in Wallet_dict['wallet']):
+            #print("GOING INTO EXISTING COIN ADDITION")
+            updated_vc = float(user_accounts.document(uid).get(field_paths={'amount_balance'}).to_dict().get('amount_balance')) - transaction_amount_vc
+            doc.update({'amount_balance' : updated_vc})
+            updated_coins = float(Wallet_dict['wallet'][coin_name]) + float(transacted_coins)
+            doc.set({'wallet': {coin_name : updated_coins}}, merge=True)
             #TODO: Add Receipt of Transaction HERE!!!!!!
+            #print("GOING INTO RECIEPT")
+            receipt = {'date' : date_of_transaction,'asset': coin_name, 'method': method, 'market_rate': cp_of_transaction, 'amount_purchased_in_vc' : transaction_amount_vc, 'amount_of_asset' : transacted_coins}
+            #print("WORKING ON RECEIPT")
+            doc.update({'receipts': firestore.ArrayUnion([receipt])})
+            #print("RECEIPT COMPLETED")
         #IF THE USER DOES NOT ALREADY OWN THAT CERTAIN CRYPTO
         else:
-            Wallet.update({coin_name : {"current_amount" : transacted_coins}})
+            #print("GOING INTO NEW COIN ADDITION")
+            updated_vc = float(user_accounts.document(uid).get(field_paths={'amount_balance'}).to_dict().get('amount_balance')) - transaction_amount_vc
+            doc.update({'amount_balance' : updated_vc}) 
+            doc.set({'wallet': {coin_name : transacted_coins}}, merge=True)
             #TODO: Add Receipt of Transaction HERE!!!!!!
+            #print("GOING INTO RECIEPT")
+            receipt = {'date' : date_of_transaction,'asset': coin_name, 'method': method, 'market_rate': cp_of_transaction, 'amount_purchased_in_vc' : transaction_amount_vc, 'amount_of_asset' : transacted_coins}
+            #print("WORKING ON RECEIPT")
+            doc.update({'receipts': firestore.ArrayUnion([receipt])})
+            #print("RECEIPT COMPLETED")
     else:
-        updated_coins = Wallet[coin_name]["Amount"] - transacted_coins
-        #TODO: I could write code below as: Amount_of_Coin_in_Wallet.update(updated_coins)
-        Coin_in_Wallet.update({"current_amount" : updated_coins})
-        #TODO: Add Receipt of Transaction HERE!!!!!!
+        if(float(Wallet_dict['wallet'][coin_name]) - float(transacted_coins) >= 0):
+            #print("GOING INTO SELL")
+            #print("I'm in the sell method")
+            updated_coins = float(Wallet_dict['wallet'][coin_name]) - float(transacted_coins)
+            doc.set({'wallet': {coin_name : updated_coins}}, merge=True)
+            updated_vc = float(user_accounts.document(uid).get(field_paths={'amount_balance'}).to_dict().get('amount_balance')) + transaction_amount_vc
+            doc.update({'amount_balance' : updated_vc})
+            #print("Sale was completed!")
+            #TODO: Add Receipt of Transaction HERE!!!!!!
+            #print("GOING INTO RECIEPT")
+            receipt = {'date' : date_of_transaction,'asset': coin_name, 'method': method, 'market_rate': cp_of_transaction, 'amount_transacted_in_vc' : transaction_amount_vc, 'amount_of_asset' : transacted_coins}
+            #print("WORKING ON RECEIPT")
+            doc.update({'receipts': firestore.ArrayUnion([receipt])})
+            #print("RECEIPT COMPLETED")
+            #TODO: Implement Profit calculation here
+            receipt_arr = doc.get(field_paths={'receipts'}).to_dict().get('receipts')
+            profit = calculate_profit(receipt_arr,coin_name, transacted_coins, cp_of_transaction)
+            doc.update({'profit': Increment(profit)})
 
     
-    #doc.update(wallet_update)
-    date_changed = Wallet[coin_name]["date_bought"]
+#TODO: Make code cleaner
+def calculate_profit(receipts, coin_name, sale_amount, current_price):
+    running_sum = 0
+    total_coins = 0
+    for receipt in receipts:
+        if(coin_name == receipt['asset']):
+            total_coins += receipt['amount_of_asset']
+            running_sum += (receipt['market_rate'] * receipt['amount_of_asset'])
+    mean_purchase_price = running_sum / total_coins
+    profit = (current_price * sale_amount) - (mean_purchase_price * sale_amount)
+    return profit
 
-def create_transaction_receipt(Wallet):
-    pass
 
 def retrieve_virtual_currency(user_accounts, uid):
-    vc = user_accounts.document(uid).get("amount_balance")
-    return vc
+    vc_buy = user_accounts.document(uid).get(field_paths={'amount_balance'}).to_dict().get('amount_balance')
+    #vc_sell = float(doc.get(field_paths={'wallet'}).to_dict()['wallet'][coin_name]) * current_price
+    #return {'buy' : vc_buy, 'sell' : vc_sell}
+    return vc_buy

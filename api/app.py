@@ -2,7 +2,6 @@ from flask import Flask, request
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
-from firebase_admin import auth
 from flask import request
 import Market
 
@@ -15,7 +14,9 @@ firebase_admin.initialize_app(cred)
 db = firestore.client()
 user_accounts = db.collection("users")
 app = Flask(__name__)
-
+docs = user_accounts.stream()
+for doc in docs:
+    print(doc.to_dict()) 
 
 def dummy_add_db(user_account = user_accounts):
     data = {'username':'ChunkyMan','password':'Chunky123','firstName':'Chunky','lastName':'Man','wallet':[{'crypto':"Bitcoin",'amount_owned':400,'purchase_price':37},{'crypto':"Ethereum",'amount_owned':300,'purchase_price':23}],'profit':50,'currency':20}
@@ -25,7 +26,7 @@ def dummy_add_db(user_account = user_accounts):
 def get_home_page():
     return {'home':"This is the Home Page"}
     
-@app.route("/Information")
+@app.route("/Information",methods = ['GET','POST'])
 def get_information_page():
     """If buy/sell form is completed the transaction is then processed on the 
     back-end by talking to the database and adjusting the user's wallet according
@@ -33,13 +34,15 @@ def get_information_page():
     if(request.method == 'GET'):
         """retrieves the amount of virtual currency so front-end
         can display a slider with min to max of tradable virtual currency"""
+        #print("inside retrive vc get")
         return {'info': Information.retrieve_virtual_currency(user_accounts, request.args.get("uid"))}
     if(request.method == 'POST'):
+        #print("Before transaction")
         try:
             Information.process_transaction(user_accounts, request.json["trade"])
-            return {'info' : 'Successfully traded'}
+            return {'info_trade' : 'Successfully traded'}
         except:
-            return {'info' : 'Unsuccessfully traded'}
+            return {'info_trade' : 'Unsuccessfully traded'}
 
 
 @app.route("/Leaderboard")
@@ -58,8 +61,3 @@ def get_news_page():
 def get_wallet_page():
     return {'Wallet':"This is the Wallet Page"}
 
-@app.route("/Create_User")
-def create_user():
-    email = request.args.get('email')
-    password = request.args.get('password')
-    user = auth.create_user(email = email,password = password)
