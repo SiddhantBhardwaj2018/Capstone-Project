@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import app from '../firebase';
+import { AuthContext } from '../Auth';
+
 
 function Leaderboard(){
+    const { currentUser } = useContext(AuthContext)
     const [Leaderboard,setLeaderboard] = useState([])
     useEffect(() => {
-        fetch("/Leaderboard").then(res => res.json()).then(data => setLeaderboard(data.leaderboard))
+        fetch(`/Leaderboard?uid=${currentUser.uid}`).then(res => res.json()).then(data => setLeaderboard(data.leaderboard))
     },[])
-    console.log(Leaderboard)
     return (
         <div>
             <h1>Leaderboard</h1>

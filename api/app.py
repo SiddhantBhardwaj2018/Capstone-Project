@@ -44,7 +44,9 @@ def get_information_page():
 
 @app.route("/Leaderboard")
 def get_leaderboard_page():
-    return {'leaderboard':Leaderboard.generate_leaderboard(user_accounts)}
+    uid = request.args['uid']
+    ans = Leaderboard.generate_leaderboard(user_accounts,uid)
+    return {'leaderboard':ans}
     
 @app.route("/Market")
 def get_market_page():

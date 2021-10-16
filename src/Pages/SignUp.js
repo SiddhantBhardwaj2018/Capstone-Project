@@ -12,6 +12,7 @@ function SignUp({ history }) {
         try{
             await app.auth().createUserWithEmailAndPassword(email.value,password.value).then(cred => {
                 return db.collection("users").doc(cred.user.uid).set({
+                    id: cred.user.uid,
                     username: username.value,
                     firstname: firstname.value,
                     lastname: lastname.value,
