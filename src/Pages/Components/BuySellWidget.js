@@ -56,20 +56,28 @@ function BuySellWidget(props){
                     <Tab>Buy</Tab>
                     <Tab>Sell</Tab>
                 </TabList>
-
-                <TabPanel style={{ width: 200 }}>
+                <TabPanel style={{ width: 500 }}>
                     <form onSubmit={e => { handleSubmit(e) }}>
-                        <label>I want to buy</label>
-                        <RangeSlider
-                            min={0}
-                            max={ownedProperty}
-                            value={value}
-                            onChange={changeEvent => {
-                                setValue(changeEvent.target.value);
-                            }}
-                            size='sm'
-                            tooltip='on'
-                        />
+                        <label>Please type the amount of virtual currency you want to buy</label>
+                        <label>You now have {ownedProperty} virtual currency</label>
+                        <br />
+                        <input value={value} type="number"
+                            onChange={e => {
+                                if (e.target.value < 0) {
+                                    alert("Please type in a positive value!");
+                                } else if (e.target.value > ownedProperty) {
+                                    alert("Please input a value smaller than " + ownedProperty);
+                                } else if (e.target.value > ownedProperty) {
+                                    alert("Please input a value smaller than " + ownedProperty);
+                                } else {
+                                    setValue(e.target.value);
+                                }
+                            }} />
+                        <br />
+                        <input value={value} type="range" max={ownedProperty} step={0.00001}
+                            onChange={e => {
+                                setValue(e.target.value);
+                            }} />
                         <br />
                         <button type="submit">Buy Now!</button>
                     </form>

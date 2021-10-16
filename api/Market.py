@@ -11,13 +11,14 @@ def checking():
     lst = []
     for coin_data in ans:
         if(coin_data['name'] in checklist):
+            coinId = coin_data['id']
             name = coin_data['name']
             symbol = coin_data['symbol']
             image = coin_data['image']
             current_price = coin_data['current_price']
             price_change_24h = coin_data['price_change_24h']
             price_change_percentage_24h = coin_data['price_change_percentage_24h']
-            object1 = {"name":name,"symbol":symbol,"image":image,"current_price":current_price,"price_change_24h":price_change_24h,
+            object1 = {"id":coinId, "name":name,"symbol":symbol,"image":image,"current_price":current_price,"price_change_24h":price_change_24h,
                     "price_change_percentage_24h":price_change_percentage_24h}
             lst.append(object1)
     return lst
