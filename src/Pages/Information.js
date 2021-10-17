@@ -11,13 +11,14 @@ function Information(props) {
     const [image, setImage] = useState("")
     const [price, setPrice] = useState(0)
     const [changeRate, setChangeRate] = useState(0)
+    console.log(props)
     let currency = props.location.state.currency;
-
     
     fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=' + currency + '&order=market_cap_desc&per_page=100&page=1')
     .then(res => res.json())
     .then(
         (data) => {
+            console.log(data)
             setName(data[0].name);
             setImage(data[0].image);
             setPrice(data[0].current_price);
@@ -29,7 +30,7 @@ function Information(props) {
             setError(error);
         }
     )
-
+        /*
     function updatePrice() {
           fetch("https://api.coingecko.com/api/v3/simple/price?ids=" + currency +"&vs_currencies=usd&include_24hr_change=true")
           .then(result => result.json())
@@ -40,7 +41,7 @@ function Information(props) {
           })
      }
      const interval = setInterval(() => updatePrice(), 10000)
-
+     */
 
     if (error) {
         return <div>Error: {error.message}</div>;

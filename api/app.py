@@ -6,6 +6,7 @@ from flask import request
 import Market
 import Information
 import Leaderboard
+import Quiz
 
 cred = credentials.Certificate("serviceAccountKey.json")
 firebase_admin.initialize_app(cred)
@@ -60,3 +61,9 @@ def get_news_page():
 def get_wallet_page():
     return {'Wallet':"This is the Wallet Page"}
 
+@app.route("/Quiz",methods = ["GET","POST"])
+def get_quiz_game():
+    if request.method == "GET":
+        return {"quiz_data":Quiz.send_questions()}
+    elif request.method == "POST":
+        return {"score":Quiz.generate_score(request.json["responses"])}

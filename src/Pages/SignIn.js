@@ -10,7 +10,6 @@ function SignIn({ history }) {
     const handleSubmit = useCallback(async event => {
         event.preventDefault();
         const { email, password } = event.target.elements;
-        console.log(email.value,password.value)
         try{
             await app.auth().signInWithEmailAndPassword(email.value,password.value);
             history.push("/")
@@ -21,7 +20,7 @@ function SignIn({ history }) {
     
     const  { currentUser } = useContext(AuthContext)
     if(currentUser){
-        return <Redirect to = "/Information" />
+        return <Redirect to = "/Market" />
     }
     return (
         <div>
