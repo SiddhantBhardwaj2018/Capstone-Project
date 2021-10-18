@@ -47,7 +47,7 @@ def get_information_page():
 def get_leaderboard_page():
     uid = request.args['uid']
     ans = Leaderboard.generate_leaderboard(user_accounts,uid)
-    return {'leaderboard':ans}
+    return {'Leaderboard':ans}
     
 @app.route("/Market")
 def get_market_page():
