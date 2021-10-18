@@ -78,8 +78,9 @@ def calculate_profit(receipts, coin_name, sale_amount, current_price):
     return profit
 
 
-def retrieve_virtual_currency(user_accounts, uid):
+def retrieve_virtual_currency(user_accounts, uid, coin_name):
     vc_buy = user_accounts.document(uid).get(field_paths={'amount_balance'}).to_dict().get('amount_balance')
-    #vc_sell = float(doc.get(field_paths={'wallet'}).to_dict()['wallet'][coin_name]) * current_price
-    #return {'buy' : vc_buy, 'sell' : vc_sell}
-    return vc_buy
+    vc_sell = float(user_accounts.document(uid).get(field_paths={'wallet'}).to_dict()['wallet'][coin_name]) 
+    """TODO: buy is in terms of Virtual Currency whereas sell is in terms of the coin amount
+    this would still need to be multiplied on the Front End by current_Price"""
+    return {'buy' : vc_buy, 'sell' : vc_sell}
