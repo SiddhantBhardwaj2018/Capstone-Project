@@ -26,7 +26,7 @@ function App() {
         <Header />
         <Switch>
           <Route exact path="/" component={Home} />
-          <PrivateRoute exact path={`/Information:selectedCoin`} component = {Information} />
+          <PrivateRoute exact path={"/Information"} component = {Information} />
           <PrivateRoute exact path = "/Leaderboard" component = {Leaderboard}/>
           <Route exact path="/Market" component={Market} />
           <Route exact path="/News" component={News} />

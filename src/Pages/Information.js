@@ -13,8 +13,7 @@ function Information(props) {
     const [price, setPrice] = useState(0)
     const [changeRate, setChangeRate] = useState(0)
     console.log(props)
-    let currency = (props.location.state == undefined) ? "hello" : props.location.state.currency;
-    props.match.params = (props.location.state == undefined) ? props.match.params : props.location.state;
+    let currency = props.location.state.currency.toLowerCase();
     console.log(props)
     fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=' + currency + '&order=market_cap_desc&per_page=100&page=1')
     .then(res => res.json())
