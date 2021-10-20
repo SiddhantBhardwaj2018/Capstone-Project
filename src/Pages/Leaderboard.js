@@ -7,23 +7,24 @@ function Leaderboard() {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const { currentUser } = useContext(AuthContext)
-    const [unames, setUname] = useState("")
+    const [unames, setUname] = useState([])
 
     useEffect(() => {
         fetch(`/Leaderboard?uid=${currentUser.uid}`)
             .then(res => res.json())
             .then(
                 (data) => {
-                    console.log(data);
                     setIsLoaded(true);
                     setUname(data.Leaderboard);
+                    console.log(unames);
                 },
                 (error) => {
                     setIsLoaded(true);
                     setError(error);
                 }
-            )
+        )
     }, [])
+
 
     if (error) {
         return <div>Error: {error.message}</div>;

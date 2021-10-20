@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import BuySellWidget from './Components/BuySellWidget';
-import { useLocation, withRouter} from 'react-router-dom';
+import { useLocation, useHistory, withRouter} from 'react-router-dom';
 
 function Information(props) {
     const location = useLocation();
+    const history = useHistory();
     //console.log(props.location.state.currency.toLowerCase());
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
@@ -12,8 +13,9 @@ function Information(props) {
     const [price, setPrice] = useState(0)
     const [changeRate, setChangeRate] = useState(0)
     console.log(props)
-    let currency = props.location.state.currency;
-    
+    let currency = (props.location.state == undefined) ? "hello" : props.location.state.currency;
+    props.match.params = (props.location.state == undefined) ? props.match.params : props.location.state;
+    console.log(props)
     fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=' + currency + '&order=market_cap_desc&per_page=100&page=1')
     .then(res => res.json())
     .then(

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useContext } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import RangeSlider from 'react-bootstrap-range-slider';
 import { Tabs, Tab, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
@@ -8,26 +8,29 @@ import {AuthContext} from '../../Auth';
 function BuySellWidget(props){
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
-    const [ownedProperty, setOwnedProperty] = useState(0);
+    const [buyProperty, setBuyProperty] = useState(0);
+    const [sellProperty, setSellProperty] = useState(0);
     const [value, setValue] = useState(0);
     const [index, setIndex] = useState(0);
     const {currentUser} = useContext(AuthContext);
     const date = new Date();
     const tradeDate = [date.getMonth()+1,date.getDate(),date.getFullYear()];
 
-    fetch("/Information?uid=" + currentUser.uid)
+    useEffect(() => {
+        fetch("/Information?uid=" + currentUser.uid + "&coin_name=" + props.coinInfo.coin)
         .then(res => res.json())
         .then(
             (data) => {
                 console.log(data);
-                setOwnedProperty(data.info);
+                setBuyProperty(data.info.buy);
+                setSellProperty(data.info.sell);
                 setIsLoaded(true);
             },
             (error) => {
                 setIsLoaded(true);
                 setError(error);
-            });
-
+            })
+    }, [])
 
     const handleSubmit = (e) => {
         const buySellRequest = {
@@ -38,7 +41,6 @@ function BuySellWidget(props){
         fetch('/Information', buySellRequest)
         .then(response => response.json())
         .then(data => console.log(data));
-        e.preventDefault();
     }
 
     if (error) {
@@ -59,22 +61,22 @@ function BuySellWidget(props){
                 <TabPanel style={{ width: 500 }}>
                     <form onSubmit={e => { handleSubmit(e) }}>
                         <label>Please type the amount of virtual currency you want to buy</label>
-                        <label>You now have {ownedProperty} virtual currency</label>
+                        <label>You now have {buyProperty} virtual currency</label>
                         <br />
                         <input value={value} type="number"
                             onChange={e => {
                                 if (e.target.value < 0) {
                                     alert("Please type in a positive value!");
-                                } else if (e.target.value > ownedProperty) {
-                                    alert("Please input a value smaller than " + ownedProperty);
-                                } else if (e.target.value > ownedProperty) {
-                                    alert("Please input a value smaller than " + ownedProperty);
+                                } else if (e.target.value > buyProperty) {
+                                    alert("Please input a value smaller than " + buyProperty);
+                                } else if (e.target.value > buyProperty) {
+                                    alert("Please input a value smaller than " + buyProperty);
                                 } else {
                                     setValue(e.target.value);
                                 }
                             }} />
                         <br />
-                        <input value={value} type="range" max={ownedProperty} step={0.00001}
+                        <input value={value} type="range" max={buyProperty} step={0.00001}
                             onChange={e => {
                                 setValue(e.target.value);
                             }} />
@@ -82,22 +84,29 @@ function BuySellWidget(props){
                         <button type="submit">Buy Now!</button>
                     </form>
                 </TabPanel>
-                <TabPanel style={{ width: 200 }}>
-                    <form onSubmit={e => { handleSubmit(e) }}>
-                        <label>I want to sell</label>
-                        <RangeSlider
-                            min={0}
-                            max={ownedProperty}
-                            value={value}
-                            onChange={changeEvent => {
-                                setValue(changeEvent.target.value);
-                            }}
-                            size='sm'
-                            tooltip='on'
-                        />
-                        <br />
-                        <button type="submit">Sell Now!</button>
-                    </form>
+                <TabPanel style={{ width: 500 }} hidden={(sellProperty == 0) ? true : false }>
+                    <label>Please type the amount of virtual currency you want to buy</label>
+                    <label>You now have {sellProperty} {props.coinInfo.coin}</label>
+                    <br />
+                    <input value={value} type="number"
+                        onChange={e => {
+                            if (e.target.value < 0) {
+                                alert("Please type in a positive value!");
+                            } else if (e.target.value > sellProperty) {
+                                alert("Please input a value smaller than " + sellProperty);
+                            } else if (e.target.value > sellProperty) {
+                                alert("Please input a value smaller than " + sellProperty);
+                            } else {
+                                setValue(e.target.value);
+                            }
+                        }} />
+                    <br />
+                    <input value={value} type="range" max={sellProperty} step={0.00001}
+                        onChange={e => {
+                            setValue(e.target.value);
+                        }} />
+                    <br />
+                    <button type="submit">Sell Now!</button>
                 </TabPanel>
             </Tabs>
         );

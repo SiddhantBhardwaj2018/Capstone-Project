@@ -18,15 +18,15 @@ import { AuthProvider } from './Auth';
 import  PrivateRoute  from './PrivateRoute'
 
 function App() {
+
   return (
     <AuthProvider>
     <Router>
         <div className="App">
         <Header />
         <Switch>
-
           <Route exact path="/" component={Home} />
-          <PrivateRoute exact path = "/Information" component = {Information} />
+          <PrivateRoute exact path={`/Information:selectedCoin`} component = {Information} />
           <PrivateRoute exact path = "/Leaderboard" component = {Leaderboard}/>
           <Route exact path="/Market" component={Market} />
           <Route exact path="/News" component={News} />

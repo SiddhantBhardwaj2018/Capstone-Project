@@ -33,7 +33,7 @@ def get_information_page():
         """retrieves the amount of virtual currency so front-end
         can display a slider with min to max of tradable virtual currency"""
         #print("inside retrive vc get")
-        return {'info': Information.retrieve_virtual_currency(user_accounts, request.args.get("uid"), request.get("coin_name"))}
+        return {'info': Information.retrieve_virtual_currency(user_accounts, request.args.get("uid"), request.args.get("coin_name"))}
     if(request.method == 'POST'):
         #print("Before transaction")
         try:
