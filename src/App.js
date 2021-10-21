@@ -17,6 +17,8 @@ import 'react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css';
 import { AuthProvider } from './Auth';
 import  PrivateRoute  from './PrivateRoute'
 
+import ConcentrationGame from './Pages/ConcentrationGame';
+
 function App() {
   return (
     <AuthProvider>
@@ -34,6 +36,8 @@ function App() {
           <Route exact path="/SignUp" component={SignUp} />
           <Route exact path="/ForgotPassword" component={ForgetPassword} />
           <PrivateRoute exact path = "/Wallet" component = {Wallet} />
+
+          <PrivateRoute exact path = "/ConcentrationGame" component = {ConcentrationGame} />
         </Switch>
         <Footer />
       </div>
