@@ -1,6 +1,6 @@
 //Header Component
 import React from "react";
-import "./style.css";
+import "./Header (Memory Game).css";
 import { Container } from "react-bootstrap";
 import { FaRedo } from "react-icons/fa";
 

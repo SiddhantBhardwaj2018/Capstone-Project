@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import app from '../firebase';
 import { AuthContext } from '../Auth';
 
@@ -32,21 +32,6 @@ const ConcentrationGame = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [imageArr, setimageArr] = useState([]);
   const {currentUser} = useContext(AuthContext);
-
-  fetch("/ConcentrationGame?uid=" + currentUser.uid)
-          .then(res => res.json())
-          .then(
-              (data) => {
-                  console.log(data);
-                  setimageArr(data.concentration_data);
-                  setIsLoaded(true);
-              },
-              (error) => {
-                  setIsLoaded(true);
-                  setError(error);
-              });
-
-
   const [cards, setCards] = useState(() =>
     shuffleCards(imageArr.concat(imageArr))
   );
@@ -55,7 +40,23 @@ const ConcentrationGame = () => {
   const [moves, setMoves] = useState(0);
   const [showmodel, setShowmodel] = useState(false);
   const [shouldDisableAllCards, setShouldDisableAllCards] = useState(false);
-
+  const timeout = useRef(null);
+  
+  useEffect(() => {
+    fetch("/ConcentrationGame")
+            .then(res => res.json())
+            .then(
+                (data) => {
+                    console.log(data);
+                    setimageArr(data.concentration_data);
+                    setIsLoaded(true);
+                },
+                (error) => {
+                    setIsLoaded(true);
+                    setError(error);
+                });
+    }, [])
+    
   const disable = () => {
     setShouldDisableAllCards(true);
   };

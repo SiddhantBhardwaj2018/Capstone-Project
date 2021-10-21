@@ -1,11 +1,9 @@
 //Card Component
 import React, { useState, useEffect, useContext } from 'react';
-import app from '../firebase';
-import { AuthContext } from '../Auth';
 
 
-import "./card.css"; //changed name
-import backpic from "../../image/backpic.png";
+import "./Card.css"; 
+import backpic from "../image/backpic.png";
 // import frontpic from "../../image/bird1.jpg";
 import classnames from "classnames";
 

@@ -72,6 +72,7 @@ def get_quiz_game():
 @app.route("/ConcentrationGame", methods = ["GET", "POST"])
 def get_concentration_game():
     if(request.method == "GET"):
-        return {"concentration_data": Concentration_Game.retrieve_images()}
+        return {'concentration_data': Concentration_Game.retrieve_images()}
     elif(request.method == "POST"):
-        return {"concentation_data": Concentration_Game.update_user_vc(user_accounts, request.args.get("uid"), request.json["game_reward"])}
+        #ToDo: implementation missing in front-end under finish component
+        return {'concentation_data': Concentration_Game.update_user_vc(user_accounts, request.args.get("uid"), request.json["game_reward"])}

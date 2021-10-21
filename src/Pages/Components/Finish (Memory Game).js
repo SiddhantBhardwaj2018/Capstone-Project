@@ -1,16 +1,18 @@
 //Finish Component
 import React from "react";
+/*
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import "./style.css";
+import "./style.css";*/
 
 //ToDo: Remove Moves
 const Finish = ({ handleRestart, showModel, moves }) => {
-  return (
+  return (<div>Work on this</div>
+    /*
     <div>
       <Dialog
         open={showModel}
@@ -34,7 +36,7 @@ const Finish = ({ handleRestart, showModel, moves }) => {
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </div>*/
   );
 };
 
