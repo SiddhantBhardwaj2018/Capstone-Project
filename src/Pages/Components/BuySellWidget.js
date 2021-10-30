@@ -1,6 +1,5 @@
 import React from 'react';
 import { useState, useEffect, useContext } from 'react';
-import RangeSlider from 'react-bootstrap-range-slider';
 import { Tabs, Tab, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import {AuthContext} from '../../Auth';
@@ -41,6 +40,7 @@ function BuySellWidget(props){
         fetch('/Information', buySellRequest)
         .then(response => response.json())
         .then(data => console.log(data));
+        e.preventDefault();
     }
 
     if (error) {

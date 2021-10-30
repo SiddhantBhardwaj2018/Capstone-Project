@@ -4,8 +4,9 @@
     "\\api",
     "\\src",
     "\\src\\Pages",
+    "\\src\\Pages\\CoinGraphs",
     "\\src\\Pages\\Components"
   ],
-  "SelectedNode": "\\src\\App.js",
+  "SelectedNode": "\\src\\Pages\\Components\\Header.js",
   "PreviewInSolutionExplorer": false
 }
