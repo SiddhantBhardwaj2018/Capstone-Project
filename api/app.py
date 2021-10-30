@@ -7,6 +7,7 @@ import Market
 import Information
 import Leaderboard
 import Quiz
+import Sentiment
 
 cred = credentials.Certificate("serviceAccountKey.json")
 firebase_admin.initialize_app(cred)
@@ -55,7 +56,7 @@ def get_market_page():
 
 @app.route("/News")
 def get_news_page():
-    return {'news':"This is the News Page"}
+    return {'news':"This is the News Page","sentiment":Sentiment.final_results()}
         
 @app.route("/Wallet")
 def get_wallet_page():
@@ -67,3 +68,4 @@ def get_quiz_game():
         return {"quiz_data":Quiz.send_questions()}
     elif request.method == "POST":
         return {"score":Quiz.generate_score(request.json["responses"])}
+    
