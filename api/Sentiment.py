@@ -51,7 +51,6 @@ def final_results():
         mean_polarity = data['Polarity'].mean()
         score = get_analysis(mean_polarity)
         d[topic] = score
-    print(d)
     return d
     
 if __name__ == "__main__":
