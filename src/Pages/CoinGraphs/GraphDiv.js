@@ -15,10 +15,26 @@ function GraphDiv(props) {
 
   let today = new Date()
   let dd = String(today.getDate()).padStart(2, '0');
-  let dd1 = String(today.getDate() - 1).padStart(2,'0')
   let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-  let yyyy = today.getFullYear();
-  const yesterday = mm + '/' + dd1 + '/' + yyyy;
+    let yyyy = today.getFullYear();
+    var dd1 = null
+    if (dd == '01') {
+        var mm1 = parseInt(mm) - 1
+        if ((mm == '02')|| (mm == '04')|| (mm == '06')|| (mm == '08')|| (mm == '09')|| (mm ==  '11')|| (mm ==  '01')) {
+            console.log("Hello")
+            dd1 = '31'
+        } else if ((mm =='05') || (mm == '07') || (mm ==  '10') || (mm == '12')) {
+            dd1 = '30'
+        } else if(mm == '03'){
+            if (yyyy % 4 == 0) {
+                dd1 = '29'
+            } else {
+                dd1 = '28'
+            }
+        }
+
+    }
+  const yesterday = mm1 + '/' + dd1 + '/' + yyyy;
   const endDate = mm + '/' + dd + '/' + yyyy;
 
   const freqInDays = 30;
@@ -49,7 +65,8 @@ function GraphDiv(props) {
       const data = await coinResponse.json();
       const data1 = await coinResponse1.json();
       setCoinData(data);
-      setCoinData1(data1);
+        setCoinData1(data1);
+        console.log(yesterday);
       setError(false);
       setIsLoaded(false);
     } catch (e) {

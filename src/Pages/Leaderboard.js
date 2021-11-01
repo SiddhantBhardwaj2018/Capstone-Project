@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react';
-import app from '../firebase';
 import { AuthContext } from '../Auth';
 
 
@@ -7,16 +6,16 @@ function Leaderboard() {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const { currentUser } = useContext(AuthContext)
-    const [unames, setUname] = useState([])
+    const [unames, setUname] = useState()
 
     useEffect(() => {
         fetch(`/Leaderboard?uid=${currentUser.uid}`)
             .then(res => res.json())
             .then(
                 (data) => {
-                    setIsLoaded(true);
-                    setUname(data.Leaderboard);
                     console.log(unames);
+                    setUname(data.Leaderboard);
+                    setIsLoaded(true);
                 },
                 (error) => {
                     setIsLoaded(true);
@@ -35,7 +34,12 @@ function Leaderboard() {
            <table>
                 {unames.map(uname => (
                     <tr>
-                        <td><h1>{uname.rank}</h1><h5>{uname.name}</h5></td>
+                        <td>
+                            <h1>{uname.rank}</h1><h5>{uname.name}</h5>
+                            <br />
+                            <p>{uname.profit}{uname.most_traded_coin}{uname.amount_balance}</p>
+
+                        </td>
                     </tr>
                 ))}
            </table>
