@@ -15,11 +15,12 @@ function GraphDiv(props) {
 
   let today = new Date()
   let dd = String(today.getDate()).padStart(2, '0');
-  let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    let mm1 = mm;
     let yyyy = today.getFullYear();
     var dd1 = null
     if (dd == '01') {
-        var mm1 = parseInt(mm) - 1
+        mm1 = parseInt(mm) - 1
         if ((mm == '02')|| (mm == '04')|| (mm == '06')|| (mm == '08')|| (mm == '09')|| (mm ==  '11')|| (mm ==  '01')) {
             console.log("Hello")
             dd1 = '31'
