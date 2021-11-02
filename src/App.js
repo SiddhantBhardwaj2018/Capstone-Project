@@ -3,6 +3,7 @@ import './App.css';
 import Home from './Pages/Home';
 import Information from './Pages/Information';
 import Leaderboard from './Pages/Leaderboard';
+import Quiz from './Pages/Quiz';
 import Market from './Pages/Market';
 import News from './Pages/News';
 import SignIn from './Pages/SignIn';
@@ -27,7 +28,8 @@ function App() {
         <Switch>
           <Route exact path="/" component={Home} />
           <PrivateRoute exact path={"/Information"} component = {Information} />
-          <PrivateRoute exact path = "/Leaderboard" component = {Leaderboard}/>
+          <PrivateRoute exact path="/Leaderboard" component={Leaderboard} />
+          <PrivateRoute exact path="/Quiz" component={Quiz} />
           <Route exact path="/Market" component={Market} />
           <Route exact path="/News" component={News} />
           <Route exact path="/SignIn" component={SignIn} />

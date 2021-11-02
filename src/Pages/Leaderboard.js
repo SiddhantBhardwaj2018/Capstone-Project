@@ -31,18 +31,23 @@ function Leaderboard() {
         return <div>Loading...</div>;
     } else {
         return (
+           <div>
            <table>
                 {unames.map(uname => (
                     <tr>
                         <td>
                             <h1>{uname.rank}</h1><h5>{uname.name}</h5>
                             <br />
-                            <p>{uname.profit}{uname.most_traded_coin}{uname.amount_balance}</p>
+                            <p>Profit: {uname.profit}</p>
+                            <p>Most Traded Coin: {uname.most_traded_coin}</p>
+                            <p>Account Balance: {uname.amount_balance}</p>
 
                         </td>
                     </tr>
                 ))}
-           </table>
+                </table>
+                <button><a href="/Quiz"> Game1 </a></button>
+            </div>
         );
     }
 }

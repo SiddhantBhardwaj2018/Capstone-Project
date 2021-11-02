@@ -39,7 +39,7 @@ function BuySellWidget(props){
         };
         fetch('/Information', buySellRequest)
         .then(response => response.json())
-        .then(data => console.log(data));
+            .then(data => console.log(data));
         e.preventDefault();
     }
 
@@ -84,7 +84,8 @@ function BuySellWidget(props){
                         <button type="submit">Buy Now!</button>
                     </form>
                 </TabPanel>
-                <TabPanel style={{ width: 500 }} hidden={(sellProperty == 0) ? true : false }>
+                <TabPanel style={{ width: 500 }} hidden={(sellProperty == 0) ? true : false}>
+                    <form onSubmit={e => { handleSubmit(e) }}>
                     <label>Please type the amount of virtual currency you want to buy</label>
                     <label>You now have {sellProperty} {props.coinInfo.coin}</label>
                     <br />
@@ -107,6 +108,7 @@ function BuySellWidget(props){
                         }} />
                     <br />
                     <button type="submit">Sell Now!</button>
+                    </form>
                 </TabPanel>
             </Tabs>
         );
