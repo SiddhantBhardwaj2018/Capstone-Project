@@ -1,21 +1,13 @@
-import tweepy
 from textblob import TextBlob
 import re
 import pandas as pd
 import numpy as np
 import random
+import praw
 
-
-consumerKey = 'oklCH2ExkD4yt8lFZdoOXQAH1'
-consumerSecret = 'QMVFbTFc7keZTJmpCHCXp5c3Itc2AfKqNJDozcAvTYSP086Hqz'
-accessToken = '1450563164043575296-nx8ra7N65CNWCLq7P4YMTS2kG0yYz5'
-accessTokenSecret = 'V6HSYqwknAaXaXBhCs1I911n69VvdJpzrJnfkHCoFtng3'
-
-authenticate = tweepy.OAuthHandler(consumerKey,consumerSecret)
-authenticate.secure = True
-authenticate.set_access_token(accessToken,accessTokenSecret)
-
-api = tweepy.API(authenticate,wait_on_rate_limit = True)
+r = praw.Reddit(client_id='_cEfvyvPfurA_qO2eawdaA',
+                client_secret='ZJJv6q3UJCLX1vhXpNXvhIXigX0S_A',
+                user_agent='CrypticApplication')
 
 def cleanTxt(text):
     text = re.sub(r'@[A-Za-z0-9]+','',text)
@@ -28,10 +20,15 @@ def getPolarity(text):
     return TextBlob(text).sentiment.polarity
 
 def get_data(topic):
-    posts = api.user_timeline(screen_name = topic,count = 100,tweet_mode = "extended")
-    df = pd.DataFrame([tweet.full_text for tweet in posts],columns=['Tweets'])
-    df['Tweets'] = df['Tweets'].apply(cleanTxt)
-    df['Polarity'] = df['Tweets'].apply(getPolarity)
+    page = r.subreddit(topic)
+    top_posts =  page.top(limit=3)
+    lst = []
+    for post in top_posts:
+        for comments in post.comments:
+            lst.append(comments.body)
+    df = pd.DataFrame(lst,columns=['Comments'])
+    df['Comments'] = df['Comments'].apply(cleanTxt)
+    df['Polarity'] = df['Comments'].apply(getPolarity)
     return df
 
 def get_analysis(score):
@@ -43,7 +40,13 @@ def get_analysis(score):
         return "Positive"
     
 def final_results():
-    coins = ["Cardano","Cosmos","Algorand","TRON","Tezos","EOS","Waves","THORChain","Decred","Qtum","ICON","Ontology","Lisk","Orbs","Ardor","Function X","Oasis Network","Ark","Solana","Polkadot","Avalanche","Uniswap","Chainlink","Polygon","Filecoin","FTX Token","Theta Network","eCash","PancakeSwap","Elrond","Quant","Theta Fuel","Celsius Network","BitTorrent","Celo","Olympus","Harmony","Flow","Telcoin","REN","Celer Network","Nano","Hedera Hashgraph","Fantom","Kusama","NEO","TerraUSD","Rocket Pool","Persistence","Unibright"]
+    coins = ['Cardano', 'Algorand', 'Cosmosnetwork', 'Tronix', 'Tezos', 'Eos', 'hashgraph', 
+             'Wavesplatform', 'THORChain', 'decred', 'icon', 'Qtum', 'ONT', 'Lisk', 'Ardor',
+             'oasislabs', 'hivenetwork', 'arkcoin', 'TomoChain', 'Tenset', 'Steemit', 'Wanchain', 
+             'BitShares', 'woonkly', 'pivx', 'nulstrader', 'XX_platform', 'v_systems', 'QWLA', 
+             'SpaceToken', 'Stakenet', 'UBIXNetwork', 'ElectraProtocol', 'SOMIDAX', 'Lanceria',
+             'AliasCash', 'BlackHat_Coin', 'LosslessToken', 'MoonStarOfficial', 'SheepToken', 
+             'Emojicrypto']    
     arr = random.sample(coins,5)
     d = {}
     for topic in arr:
