@@ -15,7 +15,7 @@ def retrieve_images():
     lst = []
     
     #TODO: Change this Value to 10
-    checklist_updated = random.sample(checklist, 20)
+    checklist_updated = random.sample(checklist, 10)
     #print(checklist_updated)
 
     for coin_data in ans:

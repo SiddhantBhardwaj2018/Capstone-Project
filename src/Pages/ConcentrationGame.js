@@ -66,9 +66,14 @@ const ConcentrationGame = () => {
   };
 
   const checkCompletion = () => {
+    console.log("Matched Cards: " + Object.keys(matchedCards).length);
+    console.log("Amount of cards: " + imageArr.length);
     if (Object.keys(matchedCards).length === imageArr.length) {
+      console.log("I'm in the setshowmodel true since both numbers are equal");
       setShowmodel(true);
+      console.log(showmodel);
     }
+    console.log(showmodel);
   };
 
   const evaluate = () => {

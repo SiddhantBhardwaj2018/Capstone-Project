@@ -1,5 +1,7 @@
 //Finish Component
 import React from "react";
+import { Button} from 'react-bootstrap';
+import Modal from 'react-bootstrap/Modal';
 /*
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -10,33 +12,20 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import "./style.css";*/
 
 //ToDo: Remove Moves
-const Finish = ({ handleRestart, showModel, moves }) => {
-  return (<div>Work on this</div>
-    /*
-    <div>
-      <Dialog
-        open={showModel}
-        disableBackdropClick
-        disableEscapeKeyDown
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <h2>Memory Game</h2>
-        <DialogTitle id="alert-dialog-title">
-          Hurray !!! You completed the game !!
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            You got {moves} moves.
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleRestart} color="primary">
+const Finish = ({ handleRestart, showmodel, moves }) => {
+  return (
+    <Modal show={showmodel}>
+        <Modal.Header closeButton>
+			<h2>Memory Game</h2>
+          <Modal.Title>Hurray !!! You completed the game !!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>You got {moves} moves.</Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleRestart}>
             Restart
           </Button>
-        </DialogActions>
-      </Dialog>
-    </div>*/
+        </Modal.Footer>
+    </Modal>
   );
 };
 

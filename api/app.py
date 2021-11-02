@@ -34,7 +34,7 @@ def get_information_page():
         """retrieves the amount of virtual currency so front-end
         can display a slider with min to max of tradable virtual currency"""
         #print("inside retrive vc get")
-        return {'info': Information.retrieve_virtual_currency(user_accounts, request.args.get("uid"), request.get("coin_name"))}
+        return {'info': Information.retrieve_virtual_currency(user_accounts, request.args.get("uid"), request.args.get("coin_name"))}
     if(request.method == 'POST'):
         #print("Before transaction")
         try:
@@ -67,7 +67,7 @@ def get_quiz_game():
     if request.method == "GET":
         return {"quiz_data":Quiz.send_questions()}
     elif request.method == "POST":
-        return {"score":Quiz.generate_score(request.json["responses"])}
+        return {"score": Quiz.generate_score(request.json["responses"])}
 
 @app.route("/ConcentrationGame", methods = ["GET", "POST"])
 def get_concentration_game():
