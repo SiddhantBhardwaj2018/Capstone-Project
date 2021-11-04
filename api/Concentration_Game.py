@@ -28,7 +28,9 @@ def retrieve_images():
     #return img_arr
     return lst
 
-def update_user_vc(user_accounts, uid, game_reward):
+def update_user_vc(user_accounts, reward_data):
+    uid = reward_data["uid"]
+    game_reward = reward_data["vc_reward"]
     doc = user_accounts.document(uid)
     updated_vc = float(doc.get(field_paths={'amount_balance'}).to_dict().get('amount_balance')) + game_reward
     doc.update({'amount_balance' : updated_vc}) 

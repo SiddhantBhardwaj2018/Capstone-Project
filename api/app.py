@@ -75,4 +75,4 @@ def get_concentration_game():
         return {'concentration_data': Concentration_Game.retrieve_images()}
     elif(request.method == "POST"):
         #ToDo: implementation missing in front-end under finish component
-        return {'concentation_data': Concentration_Game.update_user_vc(user_accounts, request.args.get("uid"), request.json["game_reward"])}
+        return {'concentation_data': Concentration_Game.update_user_vc(user_accounts, request.json["reward"])}

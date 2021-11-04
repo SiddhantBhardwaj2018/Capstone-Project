@@ -17,7 +17,7 @@ const Finish = ({ handleRestart, showmodel, moves }) => {
     <Modal show={showmodel}>
         <Modal.Header closeButton>
 			<h2>Memory Game</h2>
-          <Modal.Title>Hurray !!! You completed the game !!</Modal.Title>
+          <Modal.Title>Hurray !!! You completed the game and have won 50 virtual currency !!</Modal.Title>
         </Modal.Header>
         <Modal.Body>You got {moves} moves.</Modal.Body>
         <Modal.Footer>

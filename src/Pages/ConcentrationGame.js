@@ -30,7 +30,7 @@ const ConcentrationGame = () => {
 
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [imageArr, setimageArr] = useState([]);
+  const [imageArr, setimageArr] = useState([]); //ToDo: THIS IS AN EMPTY LIST AND NOT NULL
   const {currentUser} = useContext(AuthContext);
   const [cards, setCards] = useState(() =>
     shuffleCards(imageArr.concat(imageArr))
@@ -41,21 +41,25 @@ const ConcentrationGame = () => {
   const [showmodel, setShowmodel] = useState(false);
   const [shouldDisableAllCards, setShouldDisableAllCards] = useState(false);
   const timeout = useRef(null);
+  const [isGameActive, setisGameActive] = useState(false); 
   
   useEffect(() => {
     fetch("/ConcentrationGame")
             .then(res => res.json())
             .then(
                 (data) => {
+                  
                     console.log(data);
                     setimageArr(data.concentration_data);
+                    console.log(imageArr);
                     setIsLoaded(true);
-                },
+                  },
                 (error) => {
                     setIsLoaded(true);
                     setError(error);
                 });
     }, [])
+    
     
   const disable = () => {
     setShouldDisableAllCards(true);
@@ -66,14 +70,22 @@ const ConcentrationGame = () => {
   };
 
   const checkCompletion = () => {
-    console.log("Matched Cards: " + Object.keys(matchedCards).length);
-    console.log("Amount of cards: " + imageArr.length);
-    if (Object.keys(matchedCards).length === imageArr.length) {
-      console.log("I'm in the setshowmodel true since both numbers are equal");
+    //console.log("Matched Cards: " + Object.keys(matchedCards).length);
+    //console.log("Amount of cards: " + imageArr.length);
+    if ((Object.keys(matchedCards).length === imageArr.length) && (imageArr.length !== 0)) {
+      //console.log("I'm in the setshowmodel true since both numbers are equal");
       setShowmodel(true);
-      console.log(showmodel);
+      //console.log(showmodel);
+      const winReward = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 'reward': {uid: currentUser.uid, vc_reward: 50} })
+      };
+      fetch('/ConcentrationGame', winReward)
+      .then(response => response.json())
+      .then(data => console.log(data)); //ToDo: This can be removed
+    //console.log(showmodel);
     }
-    console.log(showmodel);
   };
 
   const evaluate = () => {
@@ -145,9 +157,14 @@ const ConcentrationGame = () => {
           moves={moves}
           //bestScore={bestScore}
           handleRestart={handleRestart}
+          setisGameActive = {setisGameActive}
         />
-        <Container>
+        {
+          !isGameActive && <h2>Please click the Start/Restart button to begin game.</h2>
+        }
+        {isGameActive &&<Container>
           <Row>
+            {console.log(cards)}
             {cards.map((card, index) => {
               return (
                 <Col xs={6} md={3} lg={2}>
@@ -164,7 +181,8 @@ const ConcentrationGame = () => {
               );
             })}
           </Row>
-        </Container>
+        </Container>}
+    
         <Finish
           showmodel={showmodel}
           moves={moves}
