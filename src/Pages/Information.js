@@ -53,7 +53,7 @@ function Information(props) {
      }
 
      useEffect(() => {
-        const timer = setInterval(updateGetPrice,1000)
+        const timer = setInterval(updateGetPrice,1000) //While presenting to Meaghan, we can change it to 10 or 15 seconds
         return () => clearInterval(timer)
      },  []);
 
