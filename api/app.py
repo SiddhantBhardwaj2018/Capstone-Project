@@ -8,6 +8,8 @@ import Information
 import Leaderboard
 import Quiz
 import Sentiment
+import crryptopanic_api
+import reddit_api_praw
 
 cred = credentials.Certificate("serviceAccountKey.json")
 firebase_admin.initialize_app(cred)
@@ -56,7 +58,7 @@ def get_market_page():
 
 @app.route("/News")
 def get_news_page():
-    return {'news':"This is the News Page","sentiment":Sentiment.final_results()}
+    return {'news':{"reddit_news":reddit_api_praw.reddit_output(),"cryptopanic_output":crryptopanic_api.cryptopanic_output()},"sentiment":Sentiment.final_results()}
         
 @app.route("/Wallet")
 def get_wallet_page():
