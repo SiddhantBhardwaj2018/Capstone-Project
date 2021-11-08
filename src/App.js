@@ -10,6 +10,7 @@ import SignIn from './Pages/SignIn';
 import SignUp from './Pages/SignUp';
 import ForgetPassword from './Pages/ForgetPassword';
 import Wallet from './Pages/Wallet';
+import ThirdGame from './Pages/ThirdGame'
 import Header from './Pages/Components/Header';
 import Footer from './Pages/Components/Footer';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -36,6 +37,7 @@ function App() {
           <Route exact path="/SignUp" component={SignUp} />
           <Route exact path="/ForgotPassword" component={ForgetPassword} />
           <PrivateRoute exact path = "/Wallet" component = {Wallet} />
+          <PrivateRoute exact path = "/SellingGame" component = {ThirdGame} />
         </Switch>
         <Footer />
       </div>

@@ -7,6 +7,7 @@ import Market
 import Information
 import Leaderboard
 import Quiz
+import SellingGame
 
 cred = credentials.Certificate("serviceAccountKey.json")
 firebase_admin.initialize_app(cred)
@@ -67,3 +68,8 @@ def get_quiz_game():
         return {"quiz_data":Quiz.send_questions()}
     elif request.method == "POST":
         return {"score":Quiz.generate_score(request.json["responses"], user_accounts, request.args.get("uid"))}
+
+@app.route("/SellingGame", methods = ["GET", "POST"])
+def get_third_game():
+    if request.method == 'POST':
+        return {'SellingGame' : SellingGame.process_reward(user_accounts, request.json["reward"]["uid"])}

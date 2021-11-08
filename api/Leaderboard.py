@@ -5,7 +5,7 @@ def generate_leaderboard(db,uid):
     ranks = []
     for doc in docs:
         doc = doc.to_dict()
-        print(doc.keys())
+        #print(doc.keys())
         coins = {}
         for receipt in doc['receipts']:
             if receipt['method'] == 'Sell':
