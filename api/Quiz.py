@@ -47,9 +47,13 @@ def send_questions():
     ans = [quiz_data[i] for i in indexes]
     return ans
 
-def generate_score(responses):
+def generate_score(responses, user_accounts, uid):
     count = 0
     for response in responses:
         if responses[response] == correct_ans[response]:
             count += 1
-    return count // 5
+    if(count / 5 >= 0.80):
+        doc = user_accounts.document(uid)
+        updated_vc = float(doc.get(field_paths={'amount_balance'}).to_dict().get('amount_balance')) + 25
+        doc.update({'amount_balance' : updated_vc})
+    return count / 5
