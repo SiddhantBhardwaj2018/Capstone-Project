@@ -25,7 +25,10 @@ def get_data(topic):
     lst = []
     for post in top_posts:
         for comments in post.comments:
-            lst.append(comments.body)
+            try:
+                lst.append(comments.body)
+            except:
+                pass
     df = pd.DataFrame(lst,columns=['Comments'])
     df['Comments'] = df['Comments'].apply(cleanTxt)
     df['Polarity'] = df['Comments'].apply(getPolarity)
