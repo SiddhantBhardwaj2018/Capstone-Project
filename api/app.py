@@ -11,6 +11,7 @@ import SellingGame
 import Sentiment
 import crryptopanic_api
 import reddit_api_praw
+import Concentration_Game
 
 cred = credentials.Certificate("serviceAccountKey.json")
 firebase_admin.initialize_app(cred)
@@ -76,3 +77,11 @@ def get_quiz_game():
 def get_third_game():
     if request.method == 'POST':
         return {'SellingGame' : SellingGame.process_reward(user_accounts, request.json["reward"]["uid"])}
+
+@app.route("/ConcentrationGame", methods = ["GET", "POST"])
+def get_concentration_game():
+    if(request.method == "GET"):
+        return {'concentration_data': Concentration_Game.retrieve_images()}
+    elif(request.method == "POST"):
+        #ToDo: implementation missing in front-end under finish component
+        return {'concentation_data': Concentration_Game.update_user_vc(user_accounts, request.json["reward"])}
