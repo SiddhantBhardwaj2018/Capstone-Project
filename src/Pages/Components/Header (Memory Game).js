@@ -2,7 +2,6 @@
 import React from "react";
 import "./Header (Memory Game).css";
 import { Container } from "react-bootstrap";
-import { FaRedo } from "react-icons/fa";
 
 //ToDo: REMOVE MOVES
 const Header = ({ moves, bestScore, handleRestart, setisGameActive }) => {
@@ -22,7 +21,6 @@ const Header = ({ moves, bestScore, handleRestart, setisGameActive }) => {
           <div className="reshuffle">
             <button onClick={execute}>
               Start/Restart
-              {/*<FaRedo />*/}
             </button>
           </div>
         </div>

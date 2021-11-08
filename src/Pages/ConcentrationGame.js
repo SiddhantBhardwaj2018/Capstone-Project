@@ -184,6 +184,7 @@ const ConcentrationGame = () => {
         </Container>}
     
         <Finish
+          setShowmodel = {setShowmodel}
           showmodel={showmodel}
           moves={moves}
           //bestScore={bestScore}

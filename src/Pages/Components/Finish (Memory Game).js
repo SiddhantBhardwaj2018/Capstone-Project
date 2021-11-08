@@ -12,10 +12,17 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import "./style.css";*/
 
 //ToDo: Remove Moves
-const Finish = ({ handleRestart, showmodel, moves }) => {
+
+const Finish = ({ handleRestart, showmodel, setShowmodel, moves }) => {
+  const redirect  = () => {
+    setShowmodel(false);
+    window.location.href = '/Leaderboard';
+  
+  }
+
   return (
     <Modal show={showmodel}>
-        <Modal.Header closeButton>
+        <Modal.Header>
 			<h2>Memory Game</h2>
           <Modal.Title>Hurray !!! You completed the game and have won 50 virtual currency !!</Modal.Title>
         </Modal.Header>
@@ -23,6 +30,9 @@ const Finish = ({ handleRestart, showmodel, moves }) => {
         <Modal.Footer>
           <Button variant="primary" onClick={handleRestart}>
             Restart
+          </Button>
+          <Button variant="secondary" onClick= {redirect}>
+            Go Back to Leaderboard
           </Button>
         </Modal.Footer>
     </Modal>
