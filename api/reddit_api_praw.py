@@ -7,7 +7,13 @@ from praw import reddit
 import random
 
 
-coins = ['Cardano', 'Algorand', 'Cosmosnetwork', 'Tronix', 'Tezos', 'Eos', 'hashgraph', 'Wavesplatform', 'THORChain', 'decred', 'icon', 'Qtum', 'ONT', 'Lisk', 'Ardor', 'oasislabs', 'hivenetwork', 'arkcoin', 'TomoChain', 'Tenset', 'Steemit', 'Wanchain', 'BitShares', 'woonkly', 'pivx', 'nulstrader', 'XX_platform', 'v_systems', 'QWLA', 'SpaceToken', 'Stakenet', 'UBIXNetwork', 'ElectraProtocol', 'SOMIDAX', 'Lanceria', 'AliasCash', 'BlackHat_Coin', 'LosslessToken', 'MoonStarOfficial', 'SheepToken', 'Emojicrypto']
+coins = ['Cardano', 'Algorand', 'Cosmosnetwork', 'Tronix', 'Tezos', 'Eos', 'hashgraph', 
+         'Wavesplatform', 'THORChain', 'decred', 'icon', 'Qtum', 'ONT', 'Lisk', 'Ardor',
+         'oasislabs', 'hivenetwork', 'arkcoin', 'TomoChain', 'Tenset', 'Steemit', 'Wanchain', 
+         'BitShares', 'woonkly', 'pivx', 'nulstrader', 'XX_platform', 'v_systems', 'QWLA', 
+         'SpaceToken', 'Stakenet', 'UBIXNetwork', 'ElectraProtocol', 'SOMIDAX', 'Lanceria', 
+         'AliasCash', 'BlackHat_Coin', 'LosslessToken', 'MoonStarOfficial', 'SheepToken', 
+         'Emojicrypto']
 
 
 r = praw.Reddit(client_id='_cEfvyvPfurA_qO2eawdaA',
@@ -18,7 +24,7 @@ r = praw.Reddit(client_id='_cEfvyvPfurA_qO2eawdaA',
 posts = []
 
 def reddit_output():
-    for coin in range(0,3):
+    for coin in range(0,4):
         random_coin = random.choice(coins)
         #print(random_coin)
         try:
@@ -43,7 +49,6 @@ def reddit_output():
             posts.append(post_data)
         except:
             pass
-    print(posts)
     return posts
     
 if __name__ == "__main__":

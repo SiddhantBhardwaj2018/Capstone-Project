@@ -44,13 +44,13 @@ def get_analysis(score):
     
 def final_results():
     coins = ['Cardano', 'Algorand', 'Cosmosnetwork', 'Tronix', 'Tezos', 'Eos', 'hashgraph', 
-             'Wavesplatform', 'THORChain', 'decred', 'icon', 'Qtum', 'ONT', 'Lisk', 'Ardor',
-             'oasislabs', 'hivenetwork', 'arkcoin', 'TomoChain', 'Tenset', 'Steemit', 'Wanchain', 
-             'BitShares', 'woonkly', 'pivx', 'nulstrader', 'XX_platform', 'v_systems', 'QWLA', 
-             'SpaceToken', 'Stakenet', 'UBIXNetwork', 'ElectraProtocol', 'SOMIDAX', 'Lanceria',
-             'AliasCash', 'BlackHat_Coin', 'LosslessToken', 'MoonStarOfficial', 'SheepToken', 
-             'Emojicrypto']    
-    arr = random.sample(coins,5)
+         'Wavesplatform', 'THORChain', 'decred', 'icon', 'Qtum', 'ONT', 'Lisk', 'Ardor',
+         'oasislabs', 'hivenetwork', 'arkcoin', 'TomoChain', 'Tenset', 'Steemit', 'Wanchain', 
+         'BitShares', 'woonkly', 'pivx', 'nulstrader', 'XX_platform', 'v_systems', 'QWLA', 
+         'SpaceToken', 'Stakenet', 'UBIXNetwork', 'ElectraProtocol', 'SOMIDAX', 'Lanceria', 
+         'AliasCash', 'BlackHat_Coin', 'LosslessToken', 'MoonStarOfficial', 'SheepToken', 
+         'Emojicrypto']
+    arr = random.sample(coins,3)
     d = {}
     for topic in arr:
         data = get_data(topic)

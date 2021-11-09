@@ -23,7 +23,7 @@ for coin in range(0,5):
 '''
 def cryptopanic_output():
     arr = []
-    random_coin = random.sample(coins, 7)
+    random_coin = random.sample(coins, 3)
     for i in random_coin:
         try:
             data = requests.get(
@@ -35,7 +35,6 @@ def cryptopanic_output():
             arr.append(post_data)
         except:
             pass
-    print(arr)
     return arr
 
 if __name__ == "__main__":
