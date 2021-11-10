@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../Auth';
+import GameDiv from './Components/GameDiv';
 
 
 function Leaderboard() {
@@ -46,7 +47,7 @@ function Leaderboard() {
                     </tr>
                 ))}
                 </table>
-                <button><a href="/Quiz"> Game1 </a></button>
+                <GameDiv />
             </div>
         );
     }
