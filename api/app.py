@@ -12,6 +12,7 @@ import Sentiment
 import crryptopanic_api
 import reddit_api_praw
 import Concentration_Game
+import Wallet
 
 cred = credentials.Certificate("serviceAccountKey.json")
 firebase_admin.initialize_app(cred)
@@ -66,9 +67,10 @@ def get_news_page():
     d = {'news':{"reddit_news": reddit_info},"sentiment":sentiment_info}
     return d
         
-@app.route("/Wallet")
+@app.route("/Wallet", methods = ["GET","POST"])
 def get_wallet_page():
-    return {'Wallet':"This is the Wallet Page"}
+    if(request.method == 'POST'):
+        return {'Wallet': {'assets' : Wallet.retrieve_assets(user_accounts, request.json["wallet"]["uid"]), 'transaction_history' : Wallet.retrieve_trans_history(user_accounts, request.json["wallet"]["uid"])}}
 
 @app.route("/Quiz",methods = ["GET","POST"])
 def get_quiz_game():
