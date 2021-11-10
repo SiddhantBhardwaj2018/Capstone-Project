@@ -1,0 +1,149 @@
+import React, { useState, useEffect, useContext } from "react";
+import {
+  AreaChart,
+  Area,
+  LineChart,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Line,
+} from "recharts";
+import { AuthContext } from "../Auth";
+
+var startTime = new Date().getTime()
+function updateGetPrice({ coins,CoinIds,setPortfolio,setlastPortfolio }){
+    let string = "";
+    let i = 0;
+    console.log(coins)
+    for (const coin in coins) {
+      if (i === 0) {
+        string += CoinIds[coin];
+      } else {
+        string += "%2C" + CoinIds[coin];
+      }
+      i++;
+    }
+
+    fetch(
+      `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${string}&order=market_cap_desc&per_page=${
+        Object.keys(coins).length
+      }&page=1&sparkline=false`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        let valuation = 0;
+        for (let j = 0; j < data.length; j++) {
+          valuation += data[j].current_price * coins[data[j].name];
+        }
+        let time = new Date().getTime();
+        let displayTime = new Date(time - startTime);
+        let seconds = displayTime.getSeconds()
+        let minute = 0
+        let lastSecond = seconds
+        if(lastSecond === 50){
+          minute += 1;
+          if(minute < 10){
+            minute = '0' + minute;
+          }
+        }
+        setPortfolio((prevState) => [
+          ...prevState,
+          { Valuation:  Number.parseFloat(valuation).toFixed(2), Time: minute + ':' + seconds },
+        ]);
+        setlastPortfolio({Valuation: Number.parseFloat(valuation).toFixed(2), Time: time})
+      });
+  };
+ 
+
+export default function Wallet_Graph() {
+  const CoinIds = {
+    Cardano: "cardano",
+    Solana: "solana",
+    Polkadot: "polkadot",
+    Avalanche: "avalanche-2",
+    Chainlink: "chainlink",
+    Uniswap: "uniswap",
+    Polygon: "matic-network",
+    Algorand: "algorand",
+    Cosmos: "cosmos",
+    "FTX Token": "ftx-token",
+    TRON: "tron",
+    Filecoin: "filecoin",
+    "Theta Network": "theta-token",
+    Fantom: "fantom",
+    Elrond: "elrond-erd-2",
+    Tezos: "tezos",
+    EOS: "eos",
+    PancakeSwap: "pancakeswap-token",
+    Flow: "flow",
+    Kusama: "kusama",
+    Quant: "quant-network",
+    eCash: "ecash",
+    THORChain: "thorchain",
+    Olympus: "olympus",
+    NEO: "neo",
+    Harmony: "harmony",
+    TerraUSD: "terrausd",
+    BitTorrent: "bittorrent-2",
+    Waves: "waves",
+    Celo: "celo",
+    "Theta Fuel": "theta-fuel",
+    "Celsius Network": "celsius-degree-token",
+    QTUM: "qtum",
+    ICON: "icon",
+    Decred: "decred",
+    Telcoin: "telcoin",
+    Ontology: "ontology",
+    REN: "ren-protocol",
+    "Rocket Pool": "rocket-pool",
+    Nano: "nano",
+    "Celer Network": "celer-network",
+    Lisk: "lisk",
+    "Function X": "fx-coin",
+    Persistence: "persistence",
+    Orbs: "orbs",
+    Unibright: "unibright",
+  };
+
+  const [error, setError] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [portfolio, setPortfolio] = useState([]);
+  const [lastPortfolio,setlastPortfolio] = useState({})
+
+ let  coins = localStorage.getItem("coins")
+ coins = JSON.parse(coins)
+  useEffect(() => {
+    const timer = setInterval(() => updateGetPrice({coins,CoinIds,setPortfolio,setlastPortfolio}), 10000); 
+    return () => clearInterval(timer);
+  }, []);
+
+  if(portfolio.length > 0){
+      console.log(portfolio)
+      return (
+          <div>
+              <h1>{lastPortfolio.Valuation}</h1>
+              <h1>{lastPortfolio.Time}</h1>
+              <LineChart data={portfolio} height={250} width={700}>
+                <XAxis dataKey="Time" />
+                <YAxis domain={["dataMin", "dataMax"]} />
+                <Line dataKey="Valuation" />
+              </LineChart>
+          </div>
+      )
+  }else{
+    return (
+        <div>
+        </div>
+        
+      );
+      
+  }
+
+}
+
+const styles = {
+  container: {
+    maxWidth: 700,
+    margin: "0 auto",
+  },
+};

@@ -12,6 +12,7 @@ import Sentiment
 import crryptopanic_api
 import reddit_api_praw
 import Concentration_Game
+import Wallet_Graph
 
 cred = credentials.Certificate("serviceAccountKey.json")
 firebase_admin.initialize_app(cred)
@@ -89,3 +90,8 @@ def get_concentration_game():
     elif(request.method == "POST"):
         #ToDo: implementation missing in front-end under finish component
         return {'concentation_data': Concentration_Game.update_user_vc(user_accounts, request.json["reward"])}
+
+@app.route("/Wallet_Graph",methods = ['GET'])
+def get_wallet():
+    uid = request.args['uid']
+    return {'unique_coins':Wallet_Graph.unique_coins(user_accounts,uid)}
