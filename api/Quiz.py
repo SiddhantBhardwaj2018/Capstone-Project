@@ -1,5 +1,6 @@
 import random
 
+#ToDo: check correct answers
 quiz_data = [{"Question":"When was Tezos Created?","Answers":['2014','2012','2009','2019']},
              {"Question":"What is FTX Token’s abbreviation?","Answers":['TokenX','FToken','FTXCoin','FTX']},
              {"Question":"As of 2021, Solana hit an all time high in what year?","Answers":['2020','2021','2017','2019']},
