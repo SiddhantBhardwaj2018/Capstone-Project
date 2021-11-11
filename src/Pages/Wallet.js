@@ -7,6 +7,7 @@ function Wallet(){
     const [Wallet,setWallet] = useState("")
     const [coins, setCoins] = useState({});
     const { currentUser } = useContext(AuthContext);
+
     useEffect(() => {
         fetch("/Wallet").then(res => res.json()).then(data => setWallet(data.Wallet))
     },[])
@@ -24,7 +25,6 @@ function Wallet(){
         <div>
             <h1>{Wallet}</h1> 
             <Wallet_Graph />
-            <button onClick = {() => app.auth().signOut()}>Sign Out</button>
         </div>
     )
 }

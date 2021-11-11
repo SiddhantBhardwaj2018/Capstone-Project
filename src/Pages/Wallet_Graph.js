@@ -38,17 +38,14 @@ function updateGetPrice({ coins,CoinIds,setPortfolio,setlastPortfolio }){
         let time = new Date().getTime();
         let displayTime = new Date(time - startTime);
         let seconds = displayTime.getSeconds()
-        let minute = 0
-        let lastSecond = seconds
-        if(lastSecond === 50){
-          minute += 1;
-          if(minute < 10){
-            minute = '0' + minute;
-          }
+        let minutes = displayTime.getMinutes()
+        let hours  = displayTime.getHours()
+        if(seconds < 10){
+          seconds = '0' + seconds
         }
         setPortfolio((prevState) => [
           ...prevState,
-          { Valuation:  Number.parseFloat(valuation).toFixed(2), Time: minute + ':' + seconds },
+          { Valuation:  Number.parseFloat(valuation).toFixed(2), Time: hours + ':' + minutes + ':' + seconds },
         ]);
         setlastPortfolio({Valuation: Number.parseFloat(valuation).toFixed(2), Time: time})
       });
@@ -56,6 +53,7 @@ function updateGetPrice({ coins,CoinIds,setPortfolio,setlastPortfolio }){
  
 
 export default function Wallet_Graph() {
+  let minute = 0
   const CoinIds = {
     Cardano: "cardano",
     Solana: "solana",
@@ -113,7 +111,7 @@ export default function Wallet_Graph() {
  let  coins = localStorage.getItem("coins")
  coins = JSON.parse(coins)
   useEffect(() => {
-    const timer = setInterval(() => updateGetPrice({coins,CoinIds,setPortfolio,setlastPortfolio}), 10000); 
+    const timer = setInterval(() => updateGetPrice({coins,CoinIds,setPortfolio,setlastPortfolio,minute}), 10000); 
     return () => clearInterval(timer);
   }, []);
 
@@ -134,7 +132,6 @@ export default function Wallet_Graph() {
     return (
         <div>
         </div>
-        
       );
       
   }
@@ -143,7 +140,9 @@ export default function Wallet_Graph() {
 
 const styles = {
   container: {
-    maxWidth: 700,
-    margin: "0 auto",
+    maxWidth: 600,
+    //padding:"100 100",
+    //margin: "0 50",
+    
   },
 };
