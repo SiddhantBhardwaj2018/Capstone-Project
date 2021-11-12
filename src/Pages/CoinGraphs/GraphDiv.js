@@ -90,20 +90,20 @@ function GraphDiv(props) {
             <Tabs
                 selectedIndex={index}
                 onSelect={(index) => setIndex(index)}
-                style={{ width: 500 }}
+                style={{ width: "50%" }}
             >
                 <TabList>
                     <Tab>Monthly</Tab>
                     <Tab>Daily</Tab>
                 </TabList>
-                <TabPanel style={{ width: 500 }}>
+                <TabPanel style={{ width: "50%" }}>
                     <Graph
                         priceArr={coinData.prices}
                         freqInDays={freqInDays}
                         amountToInvest={amountToInvest}
                     />
                 </TabPanel>
-                <TabPanel style={{ width: 500 }}>
+                <TabPanel style={{ width: 1000 }}>
                     <DailyGraph
                         priceArr={coinData1.prices}
                         amountToInvest={amountToInvest}

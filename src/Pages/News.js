@@ -24,18 +24,30 @@ function News() {
                 }
             )
     }, [])
-
+    
     const newsStyle = {
-        ".news": {
-            fontFamily: "Arial, Helvetica, sans-serif",
-            borderCollapse: "collapse",
-            width: "100%",
-            border: "1px solid #ddd",
-            padding: "8px"
-        },
-        ".news td, .news th": { border: "1px solid #ddd", padding: "8px" },
-        ".news tr:nth-child(even)": { backgroundColor: "#f2f2f2" },
-        ".news tr:hover": { backgroundColor: "#ddd" }
+        fontFamily: "Arial, Helvetica, sans-serif",
+        borderCollapse: "collapse",
+        width: "60%",
+        border: "1px solid #ddd",
+        padding: "8px"
+    }
+
+    const innerRowStyle = {
+        border: "1px solid #ddd",
+        padding: "8px"
+    }
+
+    const sentimentStyle = {
+        fontFamily: "Arial, Helvetica, sans-serif",
+        borderCollapse: "collapse",
+        width: "30%",
+        border: "1px solid #ddd",
+        padding: "8px",
+        float: "right",
+        position: "fixed",
+        top: "28.5%",
+        right: "0"
     }
 
     if (error) {
@@ -46,6 +58,7 @@ function News() {
         return (
             <div>
                 {/*sentiment*/}
+                <div style={sentimentStyle}>
                 {Object.keys(sentiment).map(currency => {
                     
                     if (sentiment[currency] == "Positive") {
@@ -66,13 +79,14 @@ function News() {
                     }
                 }
                 )
-                }
+                    }
+                </div>
 
                 {/*news*/}
                 <table className="news" style={newsStyle}>
                 {news.map(post => (
-                    <tr>
-                        <td><a href={post.url}>{post.title}</a></td>
+                    <tr style={innerRowStyle}>
+                        <td style={innerRowStyle}><a href={post.url}>{post.title}</a></td>
                         <td><p>Author: {post.redditor}</p>
                         <p>Published Date: {post["published date"]}</p></td>
                         {/*

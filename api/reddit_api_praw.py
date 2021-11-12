@@ -49,7 +49,6 @@ def reddit_output():
             posts.append(post_data)
         except:
             pass
-        print(posts)
     return posts
     
 if __name__ == "__main__":

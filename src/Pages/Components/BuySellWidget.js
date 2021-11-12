@@ -63,17 +63,17 @@ function BuySellWidget(props) {
         return <div>Loading...</div>;
     } else {
         return (
-            <div>
+            <div style={{position:"fixed", right:0, top:"30%"}}>
                 <Tabs
                     selectedIndex={index}
                     onSelect={(index) => setIndex(index)}
-                    style={{ width: 500 }}
+                    style={{ width:300 }}
                 >
                     <TabList>
                         <Tab>Buy</Tab>
                         <Tab>Sell</Tab>
                     </TabList>
-                    <TabPanel style={{ width: 500 }}>
+                    <TabPanel style={{ width: 300, border: "1px solid #ddd",}}>
                         <form onSubmit={e => { handleSubmit(e) }}>
                             <label>Please type the amount of virtual currency you want to buy</label>
                             <label>You now have {buyProperty} virtual currency</label>
@@ -99,7 +99,7 @@ function BuySellWidget(props) {
                             <button type="submit">Buy Now!</button>
                         </form>
                     </TabPanel>
-                    <TabPanel style={{ width: 500 }} hidden={(sellProperty == 0) ? true : false}>
+                    <TabPanel style={{ width:300 }} hidden={(sellProperty == 0) ? true : false}>
                         <form onSubmit={e => { handleSubmit(e) }}>
                             <label>Please type the amount of virtual currency you want to buy</label>
                             <label>You now have {sellProperty} {props.coinInfo.coin}, which is {sellProperty * props.coinInfo.price} virtual currency.</label>

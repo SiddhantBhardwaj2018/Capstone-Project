@@ -64,6 +64,11 @@ function Information(props) {
         return () => clearInterval(timer)
      },  []);
 
+    const coinImageStyle = {
+        width: 100,
+        height: 100,
+        float: "left"
+    };
     if (error) {
         return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
@@ -72,7 +77,7 @@ function Information(props) {
         let coinInfo = { 'coin': name, 'price': price };
         return (
            <div>
-                <img src={image} />
+                <img src={image} style={coinImageStyle} />
                 <h1>{name}</h1>
                 <h1>{price}</h1>
                 <h1>{changeRate}%</h1>

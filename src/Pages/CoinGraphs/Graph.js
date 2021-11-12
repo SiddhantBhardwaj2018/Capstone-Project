@@ -40,6 +40,7 @@ export default function Graph({ priceArr, freqInDays, amountToInvest }) {
 const styles = {
   container: {
     maxWidth: 700,
+    height: 300,
     margin: "0 auto",
   },
 };
