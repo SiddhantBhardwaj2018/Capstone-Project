@@ -62,10 +62,15 @@ def get_market_page():
 def get_news_page():
     reddit_info = reddit_api_praw.reddit_output()
     #crryptopanic_api_info = crryptopanic_api.cryptopanic_output()
-    sentiment_info = Sentiment.final_results()
-    d = {'news':{"reddit_news": reddit_info},"sentiment":sentiment_info}
+    d = {'news':reddit_info}
     return d
         
+@app.route("/Sentiment")
+def get_sentiment_page():
+    sentiment_info = Sentiment.final_results()
+    d = {"sentiment":sentiment_info}
+    return d
+
 @app.route("/Wallet")
 def get_wallet_page():
     return {'Wallet':"This is the Wallet Page"}
