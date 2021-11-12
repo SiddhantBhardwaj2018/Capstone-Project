@@ -5,12 +5,12 @@ import "react-bootstrap-carousel/dist/react-bootstrap-carousel.css";
 import Carousel from 'react-bootstrap/Carousel'
 
 function GameDiv() {
-    const divStyle = {
+    /*const divStyle = {
         backgroundColor: "black",
         height: "50%",
         width: "80%",
         margin: "50px"
-    }
+    }*/
     return (
         <Carousel>
             <Carousel.Item interval={1000}>
