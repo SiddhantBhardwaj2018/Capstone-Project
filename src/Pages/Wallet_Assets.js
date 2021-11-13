@@ -25,4 +25,35 @@ function updateGetPrice({ coins,CoinIds,setPortfolio,setlastPortfolio }){
         }
         //return 
       });
-  };
+
+  const [error, setError] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [portfolio, setPortfolio] = useState([]);
+  const [lastPortfolio,setlastPortfolio] = useState({})
+
+ let  coins = localStorage.getItem("coins")
+ coins = JSON.parse(coins)
+
+  if(portfolio.length > 0){
+      console.log(portfolio)
+      return (
+          <div>
+              <h1>{lastPortfolio.Valuation}</h1>
+              <h1>{lastPortfolio.Time}</h1>
+              <LineChart data={portfolio} height={250} width={700}>
+                <XAxis dataKey="Time" />
+                <YAxis domain={["dataMin", "dataMax"]} />
+                <Line dataKey="Valuation" />
+              </LineChart>
+          </div>
+      )
+  }else{
+    return (
+        <div>
+        </div>
+        
+      );
+      
+  }
+
+};

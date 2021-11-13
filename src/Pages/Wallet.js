@@ -10,6 +10,9 @@ function Wallet(){
     const [assets, setAssets] = useState([]);
     const [transaction_history, setTransaction_history] = useState([]);
     
+    //ToDo: Make consts for current_price and for portfolio percentage
+    //copy over Sidd's Wallet.js code and do it in his useEffect and use
+    //coins instead of retrieving data from back-end
     useEffect(() => {
         const walletInfo = {
             method: 'POST',
