@@ -1,4 +1,6 @@
 //Probably gonna get scrapped
+
+/*
 function updateGetPrice({ coins,CoinIds}){
     let string = "";
     let i = 0;
@@ -27,4 +29,4 @@ function updateGetPrice({ coins,CoinIds}){
       });
   
 
-};
+};*/

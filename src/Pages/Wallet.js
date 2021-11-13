@@ -65,15 +65,21 @@ function stringBuilder(coinList){
       }
       i++;
     }
+    console.log(string);
+
     return string;
+
+
+    
 }
 
 
 function Wallet(){
     const [Wallet,setWallet] = useState("");
     const {currentUser} = useContext(AuthContext);
-    const [coins, setCoins] = useState({});
+    //const [coins, setCoins] = useState([]);
     const [assets, setAssets] = useState([]);
+    const [coinCp, setCoinCp] = useState([]);
     //const [transaction_history, setTransaction_history] = useState([]);
     
     //ToDo: Make consts for current_price and for portfolio percentage
@@ -89,14 +95,14 @@ function Wallet(){
           .then(response => response.json())
           .then(data => {
               setAssets(data.Wallet['assets']);
-              setTransaction_history(data.Wallet['transaction_history']);
+              //Note: coins const is the coins im using which are different from Sidd's
+              //setCoins(data.Wallet['transaction_history']);
           });
     },[]);
 
+
+    
     //Sidd's Code
-    useEffect(() => {
-        fetch("/Wallet").then(res => res.json()).then(data => setWallet(data.Wallet))
-    },[])
     
     useEffect(() => {
       fetch(`Wallet_Graph?uid=${currentUser.uid}`)
@@ -105,8 +111,35 @@ function Wallet(){
             const coins = data.unique_coins
             localStorage.setItem("coins",JSON.stringify(coins))});
     }, []);
-  
     
+
+    //console.log(coins);
+    //stringBuilder(coins);
+
+
+    
+    useEffect(() => {
+        let  coins = localStorage.getItem("coins")
+        coins = JSON.parse(coins)
+        let cp_list = [];
+        let string = stringBuilder(coins);
+        fetch(
+            `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${string}&order=market_cap_desc&per_page=${Object.keys(coins).length
+            }&page=1&sparkline=false`
+        )
+            .then((res) => res.json())
+            .then((data) => {
+                for (let index = 0; index < data.length; index++) {
+                    cp_list.push(data[index].current_price);
+                }
+                console.log(data);
+                setCoinCp(cp_list);
+                console.log(coinCp);
+            });
+    });
+
+    
+
     return (
         <div>
             <h1>{Wallet}</h1> 
