@@ -11,10 +11,17 @@ function Information(props) {
     const [price, setPrice] = useState(0)
     const [changeRate, setChangeRate] = useState(0)
 
-    
-    if (props.location.state.currency !== undefined) {
-        sessionStorage.setItem('coinName', props.location.state.currency.toLowerCase());
+ 
+
+    if(props.location.state !== undefined){
+        if (props.location.state.currency !== undefined) {
+            sessionStorage.setItem('coinName', props.location.state.currency.toLowerCase());
+        }
+    }else{
+        const currency_name = localStorage.getItem("currency") 
+        sessionStorage.setItem('coinName',currency_name.toLocaleLowerCase());
     }
+    
     useEffect(() => {
         fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=' + sessionStorage.coinName + '&order=market_cap_desc&per_page=100&page=1')
         .then(res => res.json())
