@@ -1,10 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 import app from '../firebase';
 import Wallet_Graph from './Wallet_Graph';
-import Wallet_Assets from './Wallet_Assets';
 import { AuthContext } from "../Auth";
 
-//My code:
 function stringBuilder(coinList){
     const CoinIds = {
         Cardano: "cardano",
@@ -65,7 +63,6 @@ function stringBuilder(coinList){
       }
       i++;
     }
-    console.log(string);
 
     return string;
 
@@ -77,10 +74,8 @@ function stringBuilder(coinList){
 function Wallet(){
     const [Wallet,setWallet] = useState("");
     const {currentUser} = useContext(AuthContext);
-    //const [coins, setCoins] = useState([]);
-    const [assets, setAssets] = useState([]);
-    const [coinCp, setCoinCp] = useState([]);
-    //const [transaction_history, setTransaction_history] = useState([]);
+    const [assets, setAssets] = useState({});
+    const [transaction_history, setTransaction_history] = useState([]);
     
     //ToDo: Make consts for current_price and for portfolio percentage
     //copy over Sidd's Wallet.js code and do it in his useEffect and use
@@ -94,15 +89,12 @@ function Wallet(){
           fetch('/Wallet', walletInfo)
           .then(response => response.json())
           .then(data => {
-              setAssets(data.Wallet['assets']);
+              //setAssets(data.Wallet['assets']);
               //Note: coins const is the coins im using which are different from Sidd's
-              //setCoins(data.Wallet['transaction_history']);
+              setTransaction_history(data.Wallet['transaction_history']);
           });
     },[]);
 
-
-    
-    //Sidd's Code
     
     useEffect(() => {
       fetch(`Wallet_Graph?uid=${currentUser.uid}`)
@@ -111,17 +103,12 @@ function Wallet(){
             const coins = data.unique_coins
             localStorage.setItem("coins",JSON.stringify(coins))});
     }, []);
-    
-
-    //console.log(coins);
-    //stringBuilder(coins);
 
 
     
     useEffect(() => {
-        let  coins = localStorage.getItem("coins")
-        coins = JSON.parse(coins)
-        let cp_list = [];
+        let  coins = localStorage.getItem("coins");
+        coins = JSON.parse(coins);
         let string = stringBuilder(coins);
         fetch(
             `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${string}&order=market_cap_desc&per_page=${Object.keys(coins).length
@@ -129,20 +116,32 @@ function Wallet(){
         )
             .then((res) => res.json())
             .then((data) => {
-                for (let index = 0; index < data.length; index++) {
-                    cp_list.push(data[index].current_price);
+                let info = {};
+                let valuation = 0;
+                
+                
+                for (let j = 0; j < data.length; j++) {
+                    valuation += data[j].current_price * coins[data[j].name];
+                    info[data[j].name] = {'portfolio_per' : data[j].current_price * coins[data[j].name], 'current_price' : data[j].current_price, 'balance' : coins[data[j].name]};
+
+
                 }
-                console.log(data);
-                setCoinCp(cp_list);
-                console.log(coinCp);
+
+                for (let index = 0; index < data.length; index++) {
+                    info[data[index].name].portfolio_per = info[data[index].name].portfolio_per / valuation;
+
+
+                } 
+                setAssets(info);
             });
-    });
+    }, []);
 
-    
 
+    //console.log(assets);
+    //console.log(transaction_history);
     return (
         <div>
-            <h1>{Wallet}</h1> 
+            <h1>Wallet</h1> 
             <Wallet_Graph />
         </div>
     )

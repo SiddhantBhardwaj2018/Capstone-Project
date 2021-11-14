@@ -71,7 +71,7 @@ def get_news_page():
 @app.route("/Wallet", methods = ["GET","POST"])
 def get_wallet_page():
     if(request.method == 'POST'):
-        return {'Wallet': {'assets' : Wallet.retrieve_assets(user_accounts, request.json["wallet"]["uid"]), 'transaction_history' : Wallet.retrieve_trans_history(user_accounts, request.json["wallet"]["uid"])}}
+        return {'Wallet': {'transaction_history' : Wallet.retrieve_trans_history(user_accounts, request.json["wallet"]["uid"])}}
 
 @app.route("/Quiz",methods = ["GET","POST"])
 def get_quiz_game():

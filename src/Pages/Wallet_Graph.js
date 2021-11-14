@@ -14,7 +14,7 @@ var startTime = new Date().getTime()
 function updateGetPrice({ coins,CoinIds,setPortfolio,setlastPortfolio }){
     let string = "";
     let i = 0;
-    console.log(coins)
+    //console.log(coins)
     for (const coin in coins) {
       if (i === 0) {
         string += CoinIds[coin];
@@ -42,6 +42,9 @@ function updateGetPrice({ coins,CoinIds,setPortfolio,setlastPortfolio }){
         let hours  = displayTime.getHours()
         if(seconds < 10){
           seconds = '0' + seconds
+        }
+        if(minutes < 10){
+          minutes = '0' + minutes
         }
         setPortfolio((prevState) => [
           ...prevState,
@@ -116,11 +119,10 @@ export default function Wallet_Graph() {
   }, []);
 
   if(portfolio.length > 0){
-      console.log(portfolio)
+      //console.log(portfolio)
       return (
           <div>
-              <h1>{lastPortfolio.Valuation}</h1>
-              <h1>{lastPortfolio.Time}</h1>
+              <h1>Portfolio_Valuation: {lastPortfolio.Valuation}</h1>
               <LineChart data={portfolio} height={250} width={700}>
                 <XAxis dataKey="Time" />
                 <YAxis domain={["dataMin", "dataMax"]} />

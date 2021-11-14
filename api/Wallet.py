@@ -1,10 +1,4 @@
-#this is wallet.py
 
-def retrieve_assets(user_accounts, uid):
-    doc = user_accounts.document(uid)
-    wallet = doc.get(field_paths={'wallet'}).to_dict().get('wallet')
-    #print(wallet)
-    return wallet
 
 def retrieve_trans_history(user_accounts, uid):
     trans_history = []
