@@ -10,6 +10,7 @@ function Leaderboard() {
     const [unames, setUname] = useState()
 
     useEffect(() => {
+        document.title = "Cryptics Game";
         fetch(`/Leaderboard?uid=${currentUser.uid}`)
             .then(res => res.json())
             .then(
@@ -33,6 +34,7 @@ function Leaderboard() {
     } else {
         return (
            <div>
+                <GameDiv />
            <table>
                 {unames.map(uname => (
                     <tr>
@@ -47,7 +49,7 @@ function Leaderboard() {
                     </tr>
                 ))}
                 </table>
-                <GameDiv />
+                
             </div>
         );
     }

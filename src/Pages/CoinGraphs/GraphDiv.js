@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { LineChart, XAxis, YAxis, CartesianGrid, Line } from 'recharts';
 import { Tabs, Tab, TabList, TabPanel } from 'react-tabs';
 import dayjs from "dayjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
@@ -90,20 +89,20 @@ function GraphDiv(props) {
             <Tabs
                 selectedIndex={index}
                 onSelect={(index) => setIndex(index)}
-                style={{ width: "50%" }}
+                style={{ width: "60%",margin: "0 auto" }}
             >
                 <TabList>
                     <Tab>Monthly</Tab>
                     <Tab>Daily</Tab>
                 </TabList>
-                <TabPanel style={{ width: "50%" }}>
+                <TabPanel style={{ width: "40%" }}>
                     <Graph
                         priceArr={coinData.prices}
                         freqInDays={freqInDays}
                         amountToInvest={amountToInvest}
                     />
                 </TabPanel>
-                <TabPanel style={{ width: 1000 }}>
+                <TabPanel style={{ width: "40%" }}>
                     <DailyGraph
                         priceArr={coinData1.prices}
                         amountToInvest={amountToInvest}
@@ -117,7 +116,7 @@ function GraphDiv(props) {
     if (isLoaded) content = <div>Loading</div>;
     if (error) content = <div>{error}</div>;
     return (
-        <div>
+        <div style={{ width: "60%" } }>
             {content}
         </div>
     );

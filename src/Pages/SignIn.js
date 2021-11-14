@@ -1,5 +1,4 @@
 import React, { useCallback, useContext } from 'react';
-import { useState } from 'react';
 import { withRouter, Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../Auth';

@@ -23,7 +23,7 @@ import ConcentrationGame from './Pages/ConcentrationGame';
 
 function App() {
 
-  return (
+    return (
     <AuthProvider>
     <Router>
         <div className="App">

@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import * as Icon from 'react-bootstrap-icons';
+import Sentiment from "./Components/Sentiment";
 
 function News() {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [news,setNews] = useState({})
-    const [sentiment, setSentiment] = useState()
    
 
     useEffect(() => {
+        document.title = "Cryptics News";
         fetch("/News")
             .then(res => res.json())
             .then(
                 async(data) => {
-                    await setSentiment(data.sentiment)
                     await console.log(data)
-                    await setNews(data.news.reddit_news)
+                    await setNews(data.news)
                     await setIsLoaded(true)
                 },
                 async(error) => {
@@ -49,44 +48,20 @@ function News() {
         top: "28.5%",
         right: "0"
     }
+   
 
     if (error) {
         return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
-        return <div>Loading...</div>;
+        return <div>Cryptics is organizing news...</div>;
     } else {
         return (
-            <div>
-                {/*sentiment*/}
-                <div style={sentimentStyle}>
-                {Object.keys(sentiment).map(currency => {
-                    
-                    if (sentiment[currency] == "Positive") {
-                        return (
-                            <div>
-                                <span>{currency}</span>
-                                <Icon.ArrowUp color="green"/>
-                            </div>
-                        )
-                    }
-                    if (sentiment[currency] == "Negative") {
-                        return (
-                            <div>
-                                <span>{currency}</span>
-                                <Icon.ArrowDown color="red"/>
-                            </div>
-                            )
-                    }
-                }
-                )
-                    }
-                </div>
-
+           <div>
                 {/*news*/}
                 <table className="news" style={newsStyle}>
                 {news.map(post => (
                     <tr style={innerRowStyle}>
-                        <td style={innerRowStyle}><a href={post.url}>{post.title}</a></td>
+                        <td style={innerRowStyle}><a href={post.url} target="_blank" style={{color:"black"}}>{post.title}</a></td>
                         <td><p>Author: {post.redditor}</p>
                         <p>Published Date: {post["published date"]}</p></td>
                         {/*
@@ -102,6 +77,7 @@ function News() {
                     
                 ))}
                 </table>
+                <Sentiment style={sentimentStyle} />
             </div>
         )
     }

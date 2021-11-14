@@ -3,6 +3,9 @@ import ReactBootstrapCarousel from "react-bootstrap-carousel";
 import "bootstrap/dist/css/bootstrap.css";
 import "react-bootstrap-carousel/dist/react-bootstrap-carousel.css";
 import Carousel from 'react-bootstrap/Carousel'
+import QuizImage from "../image/Quiz.jpg"
+import MemoryGame from "../image/memoryGame.png"
+import SellingImage from "../image/sellingGame.jpg"
 
 function GameDiv() {
     /*const divStyle = {
@@ -11,20 +14,26 @@ function GameDiv() {
         width: "80%",
         margin: "50px"
     }*/
+
+    const imgStyle = {
+        height: "15%",
+        width: "100%",
+        maxHeight: "15%"
+    }
     return (
         <Carousel>
-            <Carousel.Item interval={1000}>
-                <a href="/Quiz"><h1>Quiz Game</h1></a>
+            <Carousel.Item interval={2000}>
+                <a href="Quiz"><img src={QuizImage} style={imgStyle} /></a>
                 <br />
                 <br />
             </Carousel.Item>
-            <Carousel.Item interval={1000}>
-                <a href="/ConcentrationGame"><h1>Concentration Game</h1></a>
+            <Carousel.Item interval={2000}>
+                <a href="/ConcentrationGame"><img src={MemoryGame} style={imgStyle} /></a>
                 <br />
                 <br />
             </Carousel.Item>
-            <Carousel.Item>
-                <a href="/SellingGame"><h1>Selling Game</h1></a>
+            <Carousel.Item interval={2000}>
+                <a href="/SellingGame"><img src={SellingImage} style={imgStyle} /></a>
                 <br />
                 <br />
             </Carousel.Item>

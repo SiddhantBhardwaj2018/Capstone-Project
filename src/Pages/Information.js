@@ -23,6 +23,7 @@ function Information(props) {
     }
     
     useEffect(() => {
+        document.title = "Cryptics Market";
         fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=' + sessionStorage.coinName + '&order=market_cap_desc&per_page=100&page=1')
         .then(res => res.json())
         .then(
@@ -67,7 +68,10 @@ function Information(props) {
     const coinImageStyle = {
         width: 100,
         height: 100,
-        float: "left"
+        float: "left",
+        borderRadius: "50%",
+        marginLeft: "10%",
+        marginTop:"5%"
     };
     if (error) {
         return <div>Error: {error.message}</div>;

@@ -2,12 +2,13 @@
   "ExpandedNodes": [
     "",
     "\\api",
+    "\\public",
     "\\src",
     "\\src\\Pages",
     "\\src\\Pages\\CoinGraphs",
     "\\src\\Pages\\Components",
     "\\src\\Pages\\image"
   ],
-  "SelectedNode": "\\src\\Pages\\image\\backpic.png",
+  "SelectedNode": "\\src\\Pages\\Market.js",
   "PreviewInSolutionExplorer": false
 }
