@@ -12,6 +12,8 @@ import Sentiment
 import crryptopanic_api
 import reddit_api_praw
 import Concentration_Game
+import Wallet
+import Wallet_Graph
 
 cred = credentials.Certificate("serviceAccountKey.json")
 firebase_admin.initialize_app(cred)
@@ -66,9 +68,10 @@ def get_news_page():
     d = {'news':{"reddit_news": reddit_info},"sentiment":sentiment_info}
     return d
         
-@app.route("/Wallet")
+@app.route("/Wallet", methods = ["GET","POST"])
 def get_wallet_page():
-    return {'Wallet':"This is the Wallet Page"}
+    if(request.method == 'POST'):
+        return {'Wallet': {'transaction_history' : Wallet.retrieve_trans_history(user_accounts, request.json["wallet"]["uid"])}}
 
 @app.route("/Quiz",methods = ["GET","POST"])
 def get_quiz_game():
@@ -89,3 +92,8 @@ def get_concentration_game():
     elif(request.method == "POST"):
         #ToDo: implementation missing in front-end under finish component
         return {'concentation_data': Concentration_Game.update_user_vc(user_accounts, request.json["reward"])}
+
+@app.route("/Wallet_Graph",methods = ['GET'])
+def get_wallet():
+    uid = request.args['uid']
+    return {'unique_coins':Wallet_Graph.unique_coins(user_accounts,uid)}
