@@ -23,8 +23,8 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "py -m venv venv && venv\\Scripts\\activate && react-scripts start",
-    "start-api": "cd api && py -m venv venv && venv\\Scripts\\activate &&  pip install praw && pip install textblob && pip install pandas && flask run --no-debugger",
+    "start": "python3.8 -m venv venv && source venv/bin/activate && react-scripts start",
+    "start-api": "cd api && python3.8 -m venv venv && source ./venv/bin/activate &&  pip install praw && pip install textblob && pip install pandas && flask run --no-debugger",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
