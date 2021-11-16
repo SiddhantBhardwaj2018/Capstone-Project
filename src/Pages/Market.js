@@ -10,6 +10,7 @@ function Market() {
     
 
     useEffect(() => {
+        document.title = "Cryptics Market";
         fetch("/Market")
             .then(res => res.json())
             .then(
@@ -24,17 +25,33 @@ function Market() {
             )
     }, [])
 
+    const imageStyle = {
+        width: "40%",
+        height: "40%"
+    }
+
+    const innerTablePadding = {
+            paddingTop: "50%"
+    }
+
     if (error) {
         return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
         return <div>Loading...</div>;
     } else {
         return (
-            <table>
+            <table style={innerTablePadding}>
+                <tr>
+                    <td></td>
+                    <td><h3>Coin</h3></td>
+                    <td><h3>Price</h3></td>
+                    <td><h3>Price Change in Past 24h</h3></td>
+                    <td><h3>Price Change % in Past 24h</h3></td>
+                </tr>
                 {coins.map(coin => (
                     <tr>
-                        <td><img src={coin.image} /></td>
-                        <td><h1>{coin.name}</h1><h5>{coin.symbol}</h5></td>
+                        <td><img style={imageStyle} src={coin.image} /></td>
+                        <td><h3>{coin.name}</h3><h5>{coin.symbol}</h5></td>
                         <td>{coin.current_price}</td>
                         <td>{coin.price_change_24h}</td>
                         <td>{coin.price_change_percentage_24h}</td>

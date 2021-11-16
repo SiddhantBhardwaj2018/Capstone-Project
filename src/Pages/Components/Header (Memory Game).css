@@ -1,12 +1,15 @@
 h1 {
     padding: 20px;
-    color: rgb(60, 33, 122);
+    /*color: rgb(60, 33, 122);*/
   
-    background: radial-gradient(rgb(253 126 20 / 80%), rgba(0, 255, 255, 0.589));
+    /*background: radial-gradient(rgb(253 126 20 / 80%), rgba(0, 255, 255, 0.589));*/
     text-align: center;
     font-family: "Russo One", sans-serif;
   }
-  
+a {
+    text-decoration: none;
+    color:white;
+}
   .sub-header {
     padding: 5px;
     color: rgb(60, 33, 122);
@@ -18,13 +21,13 @@ h1 {
   }
   
   button {
-    color: rgb(60, 33, 122);
+    /*color: rgb(60, 33, 122);*/
     border-radius: 8px;
     background-color: rgb(184, 184, 184);
     margin-bottom: 8px;
   }
   button:hover {
-    color: rgb(239, 237, 245);
+    /*color: rgb(239, 237, 245);*/
     background-color: rgb(60, 33, 122);
     font-weight: 800;
   }

@@ -26,20 +26,19 @@ export default function Graph({ priceArr, freqInDays, amountToInvest }) {
 
   
   return (
-  <div style={styles.container}>
      <div style={styles.container}>
       <LineChart data={dataArr} height={250} width={700}>
         <XAxis dataKey="date"  />
         <YAxis domain={['dataMin', 'dataMax']} />
         <Line dataKey = "CoinPrice" />
       </LineChart>
-  </div>
   </div>);
 }
 
 const styles = {
   container: {
     maxWidth: 700,
+    height: 300,
     margin: "0 auto",
   },
 };

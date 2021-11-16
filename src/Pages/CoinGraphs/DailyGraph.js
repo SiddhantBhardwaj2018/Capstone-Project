@@ -49,7 +49,8 @@ export default function DailyGraph({ priceArr,  amountToInvest }) {
 
   const styles = {
     container: {
-      maxWidth: 700,
+     maxWidth: 700,
+     height: 300,
       margin: "0 auto",
     },
   };

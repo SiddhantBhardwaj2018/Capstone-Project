@@ -21,6 +21,7 @@ def checking():
             object1 = {"id":coinId, "name":name,"symbol":symbol,"image":image,"current_price":current_price,"price_change_24h":price_change_24h,
                     "price_change_percentage_24h":price_change_percentage_24h}
             lst.append(object1)
+        
     return lst
             
 if __name__ == "__main__":
