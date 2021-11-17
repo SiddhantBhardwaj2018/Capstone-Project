@@ -96,7 +96,7 @@ function Wallet() {
       .then((res) => res.json())
       .then((data) => {
         const coins = data.unique_coins;
-        localStorage.setItem("coins", JSON.stringify(coins));
+        setTimeout(() => localStorage.setItem("coins", JSON.stringify(coins),1000));
       });
   }, []);
 
@@ -138,13 +138,20 @@ function Wallet() {
   let coins = localStorage.getItem("coins");
   coins = JSON.parse(coins);
   if(coins !== null){
-    console.log(coins)  
-    return (
+    if(Object.keys(coins).length > 0){
+      return (
         <div>
           <h1>Wallet</h1>
           <Wallet_Graph />
         </div>
       );
+    }else{
+      return(
+        <div>
+            <h1>You do not have enough coins</h1>
+        </div>
+    )
+    }
   }else{
       return(
           <div>

@@ -1,23 +1,23 @@
-import React, { useCallback, useContext } from 'react';
+import React, {useState,useEffect, useCallback, useContext } from 'react';
 import { withRouter, Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../Auth';
 import app from '../firebase';
 
 function SignIn({ history }) {
-    
+    const  { currentUser } = useContext(AuthContext)
+      
     const handleSubmit = useCallback(async event => {
         event.preventDefault();
         const { email, password } = event.target.elements;
         try{
             await app.auth().signInWithEmailAndPassword(email.value,password.value);
-            history.push("/")
+            history.push("/Market")
         }catch(error){
             alert(error)
         }
     },[history])
     
-    const  { currentUser } = useContext(AuthContext)
     if(currentUser){
         return <Redirect to = "/Market" />
     }

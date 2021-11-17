@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { AuthContext } from '../Auth';
 import { Link } from 'react-router-dom';
 
 
@@ -7,7 +8,7 @@ function Market() {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [coins, setCoins] = useState([]);
-    
+    const  { currentUser } = useContext(AuthContext)
 
     useEffect(() => {
         document.title = "Cryptics Market";
@@ -24,6 +25,15 @@ function Market() {
                 }
             )
     }, [])
+
+    useEffect(() => {
+        fetch(`/Wallet_Graph?uid=${currentUser.uid}`)
+          .then((res) => res.json())
+          .then((data) => {
+            const coins = data.unique_coins;
+            localStorage.setItem("coins", JSON.stringify(coins));
+          });
+      }, []);
 
     const imageStyle = {
         width: "40%",

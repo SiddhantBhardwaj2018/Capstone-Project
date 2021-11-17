@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './App.css';
 import Home from './Pages/Home';
 import Information from './Pages/Information';
@@ -16,7 +16,7 @@ import Footer from './Pages/Components/Footer';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css'; // or include from a CDN
 import 'react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css';
-import { AuthProvider } from './Auth';
+import { AuthProvider, AuthContext } from './Auth';
 import  PrivateRoute  from './PrivateRoute'
 
 import ConcentrationGame from './Pages/ConcentrationGame';

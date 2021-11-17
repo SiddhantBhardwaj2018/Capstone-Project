@@ -115,7 +115,7 @@ export default function Wallet_Graph() {
  coins = JSON.parse(coins)
 
   useEffect(() => {
-      const timer = setInterval(() => updateGetPrice({coins,CoinIds,setPortfolio,setlastPortfolio,minute}), 10000); 
+    const timer = setInterval(() => updateGetPrice({coins,CoinIds,setPortfolio,setlastPortfolio,minute}), 10000); 
     return () => clearInterval(timer);
 
   }, []);
