@@ -19,7 +19,9 @@ function Header() {
                         <Nav.Link href="/Wallet">Wallet</Nav.Link>
                     </Nav>
                 </Container>
-                <button onClick = {() => app.auth().signOut()}>Sign Out</button>
+                <button onClick = {() => {
+                    localStorage.clear()
+                    app.auth().signOut()}}>Sign Out</button>
             </Navbar>);
     }
     else {

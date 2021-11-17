@@ -21,7 +21,7 @@ function SignUp({ history }) {
                     receipts: []
                 })
             })
-            history.push("/Information")
+            history.push("/Market")
         }catch(error){
             alert(error)
         }

@@ -113,13 +113,14 @@ export default function Wallet_Graph() {
 
  let  coins = localStorage.getItem("coins")
  coins = JSON.parse(coins)
-  useEffect(() => {
-    const timer = setInterval(() => updateGetPrice({coins,CoinIds,setPortfolio,setlastPortfolio,minute}), 10000); 
-    return () => clearInterval(timer);
-  }, []);
 
+  useEffect(() => {
+      const timer = setInterval(() => updateGetPrice({coins,CoinIds,setPortfolio,setlastPortfolio,minute}), 10000); 
+    return () => clearInterval(timer);
+
+  }, []);
+  
   if(portfolio.length > 0){
-      //console.log(portfolio)
       return (
           <div>
               <h1>Portfolio_Valuation: {lastPortfolio.Valuation}</h1>
@@ -133,6 +134,7 @@ export default function Wallet_Graph() {
   }else{
     return (
         <div>
+          <h1>Please wait !! The Graph is Loading !!</h1>
         </div>
       );
       
