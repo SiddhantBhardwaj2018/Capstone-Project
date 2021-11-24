@@ -5,7 +5,7 @@ quiz_data = [{"Question":"When was Tezos Created?","Answers":['2014','2012','200
              {"Question":"What is FTX Token’s abbreviation?","Answers":['TokenX','FToken','FTXCoin','FTX']},
              {"Question":"As of 2021, Solana hit an all time high in what year?","Answers":['2020','2021','2017','2019']},
              {"Question":"The Waves Cryptocurrency has what shape on its logo image?","Answers":['Diamond (or Square)','Tree','Gold Coin','Hearts']},
-             {"Question":"The founder of Cardano was the Co-Founder for which coin?","Answers":['A','B','Ethereum','D']},
+             {"Question":"The founder of Cardano was the Co-Founder for which coin?","Answers":['Solana','Filecoin','Ethereum','Cosmos']},
              {"Question":"PancakeSwap allows users to ________.","Answers":['Exchange tokens','Transmit Money','Trade Cryptocurrency','Earn Interest']},
              {"Question":"Polkadot has what symbol on its logo image?","Answers":['Polkadot Imagery','Christmas Tree','A Star Sign followed by the word P','The letter P followed by a Period']},
              {"Question":"Which coin has an atom for its logo image?","Answers":['Cosmos','Ardor','FTX Token','Tezos']},

@@ -56,19 +56,19 @@ function Quiz(props) {
             e.preventDefault();
         }*/
         //if (formSubmit == true) {
-            const userAnswers = {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 'responses': responses })
-            };
-            fetch('/Quiz', userAnswers)
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data)
-                    setpopupContent("You Score is " + data.score)
-                    setShowPopup(true)
-                });
-            e.preventDefault();
+        const userAnswers = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 'responses': responses })
+        };
+        fetch('/Quiz', userAnswers)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                setpopupContent("You Score is " + data.score)
+                setShowPopup(true)
+            });
+        e.preventDefault();
         //}
     }
 
@@ -82,40 +82,54 @@ function Quiz(props) {
         return <div>Loading...</div>;
     } else {
         return (
-           <div>
-            <form onSubmit={e => handleSubmit(e) }>
-                     <p>{questions[qindex].Question}</p>
-                        
-                     {
-                     questions[qindex].Answers.map(choice => {
-                          return (
-                              <>
-                                  <input type="radio" value={choice}
-                                      name={questions[qindex].Question}
-                                      onChange={e => { setRadioChecked(choice); handleSelect(e); }}
-                                      checked={radioChecked == choice} />
-                              <label>{choice}</label>
-                              <br />
-                              </>
-                           )
-                        })
-                     }
-                <br />
-                <Button onClick={e => setQindex(qindex - 1)} hidden={(qindex == 0) ? true : false}>Previous</Button>
-                <Button onClick={e => { setQindex(qindex + 1); setRadioChecked(""); }} hidden={(qindex == 4) ? true : false}>Next</Button>
-                <button type="submit">Submit</button>
-            </form>
-            <Modal show={showPopup} onHide={handleClose}>
+            <div className="row">
+                <form onSubmit={e => handleSubmit(e)}>
+                    <div>
+                        <p style = {{fontFamily: 'Kanit'}}><b>{questions[qindex].Question}</b></p>
+                    </div>
+                    <div className="d-flex flex-row">
+
+                    <div className="p-2"></div>
+
+                        <div style={{ textAlign: 'left', }} className="p-2 mx-auto">
+                            {
+                                questions[qindex].Answers.map(choice => {
+                                    return (
+                                        <>
+                                            <div className="" >
+                                                <input type="radio" value={choice}
+                                                    name={questions[qindex].Question}
+                                                    onChange={e => { setRadioChecked(choice); handleSelect(e); }}
+                                                    checked={radioChecked == choice} />
+                                                <label style = {{fontFamily: 'Kanit'}}>{choice}</label>
+                                                <br />
+                                            </div>
+                                        </>
+                                    )
+                                })
+                            }
+                            
+                            
+                        </div>
+                        <div className="p-2"></div>
+                    </div>
+
+                    <br />
+                    <button className=".btn-space btn btn-outline-primary m-2" type="button" onClick={e => setQindex(qindex - 1)} hidden={(qindex == 0) ? true : false}>Previous</button>
+                    <button className=".btn-space btn btn-outline-primary m-2" type="button" onClick={e => { setQindex(qindex + 1); setRadioChecked(""); }} hidden={(qindex == 4) ? true : false}>Next</button>
+                    <button style = {{fontFamily: 'Kanit'}} className=".btn-space btn btn-outline-primary m-2" type="submit">Submit</button>
+                </form>
+                <Modal show={showPopup} onHide={handleClose}>
                     <Modal.Body>{popupContent}</Modal.Body>
                     <Modal.Footer>
                         <Button onClick={handleClose}>
                             Close
                         </Button>
-                    <Button onClick={refreshQuiz}>
+                        <Button onClick={refreshQuiz}>
                             Try Again
                         </Button>
                     </Modal.Footer>
-            </Modal>
+                </Modal>
                 {/*<Modal show={showPopup1}>
                     <Modal.Body>{popupContent}</Modal.Body>
                     <Modal.Footer>
@@ -127,7 +141,7 @@ function Quiz(props) {
                         </Button>
                     </Modal.Footer>
             </Modal>*/}
-           </div>
+            </div>
         );
     }
 }

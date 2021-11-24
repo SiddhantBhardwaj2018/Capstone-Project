@@ -29,37 +29,56 @@ function SignUp({ history }) {
 
     return (
         <form onSubmit={e => { handleSubmit(e) }}>
-             <label>FirstName</label>
+            <h3 style = {{fontFamily: 'Kanit'}}> Create your Cryptic account</h3>
+            <div className=".signin">
+             <label style = {{fontFamily: 'Kanit'}}>FirstName</label>
+            </div>
             <input
                 name='firstname'
                 type='text'
+                placeholder = 'First name'
             />
             <br />
-            <label>LastName</label>
+            <div className=".signin">
+            <label style = {{fontFamily: 'Kanit'}}>LastName</label>
+            </div>
             <input
                 name='lastname'
                 type='text'
+                placeholder = 'Last name'
             />
             <br />
-            <label>Username</label>
+            <div className=".signin">
+            <label style = {{fontFamily: 'Kanit'}}>Username</label>
+            </div>
             <input
                 name='username'
                 type='text'
+                placeholder = 'John18'
             />
             <br />
-            <label>Email</label>
+            <div className=".signin">
+            <label style = {{fontFamily: 'Kanit'}}>Email</label>
+            </div>
             <input
                 name='email'
                 type='email'
+                placeholder = 'John@example.com'
             />
             <br />
-            <label>Password</label>
+            <div className=".signin">
+            <label style = {{fontFamily: 'Kanit'}}>Password</label>
+            </div>
             <input
                 name='password'
                 type='password'
+                placeholder = '********'
             />
             <br />
-            <button type="submit">Sign Up!</button>
+            <br />
+            <div className=".signin">
+            <button style = {{fontFamily: 'Kanit'}} className=".btn-space btn btn-outline-primary mr-1" type="submit">Sign Up!</button>
+            </div>
         </form>
     )
 }

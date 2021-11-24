@@ -1,0 +1,96 @@
+.signin{
+    width: 300px;
+    margin: auto;
+    text-align: "center";
+}
+.signup{
+    width: 720px;
+    margin: auto;
+    text-align: "center"
+}
+.btn-space {
+    margin-top: 25px;
+}
+.button {
+    background-color: #CFB0FF;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+/*@import url('https://fonts.googleapis.com/css2?family=Kanit&display=swap');
+
+div {
+    font-family: Garamond, serif;
+    font-family: 'Kanit', sans-serif;
+}*/
+.radio_button {
+    width: 25px;
+    height: 25px;
+    border: 2px solid rgb(185, 9, 9);
+    margin-left: 20px;
+
+}
+.button_space {
+
+    margin-left :5px 
+}
+.radio-label {
+    display: inline-block;
+     vertical-align: top;
+     margin-right: 3%;
+ }
+.fieldset {
+    display: block;
+    margin-left: 2px;
+    margin-right: 2px;
+    padding-top: 0.35em;
+    padding-bottom: 0.625em;
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+    border: 2px groove (internal value);
+  }
+.line {
+    content: '';
+    position: relative;
+    top: 16px;
+    display: block;
+    z-index: -1;
+    left: 4%;
+    background-color: gray;
+    height: 4px;
+    align-items: center;
+    width: 93%;
+}
+.vline{
+    content: '';
+    position: relative;
+    top: 22px;
+    display: block;
+    z-index: -2;
+    left: 149px;
+    background-color: gray;
+    height: 30px;
+    align-items: center;
+    width: 4px;
+}
+.headye {
+    color: blue;
+    font-size: 30pt;
+    text-shadow: 16px 8px 16px grey;
+}
+.thick {
+    font-weight: bold;
+  }
+.left{
+    text-align: left;
+}
+.font{
+    font-family: 'Kanit', sans-serif;
+}
+
+

@@ -18,17 +18,21 @@ function ForgetPassword({ history }) {
 
     return (
         <form onSubmit={e => { handleSubmit(e) }}>
-            <h3>Have Trouble Logging In?</h3>
-            <p>Please input your sign-in email</p>
-            <p>And check your mailbox to confirm</p>
+            <h3 style = {{fontFamily: 'Kanit'}}>Forgot your Password?</h3>
+            <p style = {{fontFamily: 'Kanit'}}>Please input your email</p>
+            <p style = {{fontFamily: 'Kanit'}}>Confirmation will be sent to your mailbox.</p>
             <br />
-            <label>Email</label>
+            <div className="signin">
+            <label style = {{fontFamily: 'Kanit'}}>Email</label>
+            </div>
             <input
                 name='email'
                 type='email'
+                placeholder = "John@example.com"
             />
             <br />
-            <button type="submit">Submit</button>
+            <br />
+            <button style = {{fontFamily: 'Kanit'}} class="black" className=".btn-space btn btn-outline-primary mr-1" type="submit">Submit</button>
         </form>
     )
 }
