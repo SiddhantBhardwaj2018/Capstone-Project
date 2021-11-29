@@ -5,6 +5,8 @@ import 'react-tabs/style/react-tabs.css';
 import { AuthContext } from '../../Auth';
 import Modal from 'react-bootstrap/Modal';
 import { Button } from 'react-bootstrap';
+import Collapse from 'react-bootstrap/Collapse';
+import Fade from 'react-bootstrap/Fade';
 
 
 function BuySellWidget(props) {
@@ -12,10 +14,13 @@ function BuySellWidget(props) {
     const [isLoaded, setIsLoaded] = useState(false);
     const [buyProperty, setBuyProperty] = useState(0);
     const [sellProperty, setSellProperty] = useState(0);
+    const [openBuy, setOpenBuy] = useState(false);
+    const [openSell, setOpenSell] = useState(false);
     const [value, setValue] = useState(0);
     const [index, setIndex] = useState(0);
     const [showPopup, setShowPopup] = useState(false);
     const [tradeNotify, setTradeNotify] = useState();
+
     const { currentUser } = useContext(AuthContext);
     const date = new Date();
     const tradeDate = [date.getMonth() + 1, date.getDate(), date.getFullYear()];
@@ -63,18 +68,34 @@ function BuySellWidget(props) {
         return <div>Loading...</div>;
     } else {
         return (
-            <div style={{position:"fixed", right:0, top:"30%"}}>
+            <div style={{ position: "fixed", right: 0, top: "36%" }}>
+                {/*<Button
+                    onClick={() => setOpenBuy(!openBuy)}
+                    aria-controls="example-collapse-text"
+                    aria-expanded={openBuy}
+                >
+                    Buy
+                </Button>
+                <br />
+                <Button
+                    onClick={() => setOpenSell(!openSell)}
+                    aria-controls="example-collapse-text"
+                    aria-expanded={openSell}
+                >
+                    Sell
+                </Button>*/}
                 <Tabs
                     selectedIndex={index}
                     onSelect={(index) => setIndex(index)}
-                    style={{ width:300 }}
+                    style={{ width:400 }}
                 >
                     <TabList>
                         <Tab>Buy</Tab>
                         <Tab>Sell</Tab>
                     </TabList>
-                    <TabPanel style={{ width: 300, border: "1px solid #ddd",}}>
-                        <form onSubmit={e => { handleSubmit(e) }}>
+                    <TabPanel style={{ width: 400, border: "1px solid #ddd", }}>
+                        <form style={{ width: 400, border: "1px solid #ddd"}}
+                            onSubmit={e => { handleSubmit(e) }}>
                             <label>Please type the amount of virtual currency you want to buy</label>
                             <label>You now have {buyProperty} virtual currency</label>
                             <br />
@@ -97,11 +118,16 @@ function BuySellWidget(props) {
                                 }} />
                             <br />
                             <button type="submit">Buy Now!</button>
-                        </form>
+                            </form>
+                            
                     </TabPanel>
-                    <TabPanel style={{ width:300 }} hidden={(sellProperty == 0) ? true : false}>
-                        <form onSubmit={e => { handleSubmit(e) }}>
+                    <TabPanel style={{ width:400 }} hidden={(sellProperty == 0) ? true : false}>
+                
+                    <form style={{ width: 400, border: "1px solid #ddd" }}
+                        onSubmit={e => { handleSubmit(e) }}>
+                        
                             <label>Please type the amount of virtual currency you want to buy</label>
+                            
                             <label>You now have {sellProperty} {props.coinInfo.coin}, which is {sellProperty * props.coinInfo.price} virtual currency.</label>
                             <br />
                             <input value={value} type="number"

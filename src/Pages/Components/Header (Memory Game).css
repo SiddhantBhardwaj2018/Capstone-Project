@@ -26,11 +26,11 @@ a {
     background-color: rgb(184, 184, 184);
     margin-bottom: 8px;
   }
-  button:hover {
-    /*color: rgb(239, 237, 245);*/
-    background-color: rgb(60, 33, 122);
-    font-weight: 800;
-  }
+    button:hover {
+        /*color: rgb(239, 237, 245);*/
+        background-color: #CFB0FF;
+        font-weight: 800;
+    }
   .bold {
     text-transform: uppercase;
   }

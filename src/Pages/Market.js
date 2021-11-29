@@ -30,9 +30,7 @@ function Market() {
         height: "40%"
     }
 
-    const innerTablePadding = {
-            paddingTop: "50%"
-    }
+
 
     if (error) {
         return <div>Error: {error.message}</div>;
@@ -40,13 +38,13 @@ function Market() {
         return <div>Loading...</div>;
     } else {
         return (
-            <table style={innerTablePadding}>
+            <table>
                 <tr>
                     <td></td>
-                    <td><h3>Coin</h3></td>
-                    <td><h3>Price</h3></td>
-                    <td><h3>Price Change in Past 24h</h3></td>
-                    <td><h3>Price Change % in Past 24h</h3></td>
+                    <td><h4>Coin</h4></td>
+                    <td><h4>Price</h4></td>
+                    <td><h4>Price Change in Past 24h</h4></td>
+                    <td><h4>Price Change % in Past 24h</h4></td>
                 </tr>
                 {coins.map(coin => (
                     <tr>
@@ -55,9 +53,9 @@ function Market() {
                         <td>{coin.current_price}</td>
                         <td>{coin.price_change_24h}</td>
                         <td>{coin.price_change_percentage_24h}</td>
-                        <td><button><Link to={{ pathname: `/Information`, state: { currency: coin.id } }} target = "_blank" onClick={() => {
+                        <td><Link to={{ pathname: `/Information`, state: { currency: coin.id } }} target = "_blank" onClick={() => {
                             localStorage.setItem("currency", coin.id)
-                            }}> Detail </Link></button></td>
+                            }}><button> Detail </button></Link></td>
                     </tr>
                 ))}
             </table>

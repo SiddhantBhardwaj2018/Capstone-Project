@@ -1,22 +1,35 @@
 import React, { useContext } from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
-import logo_light from '../../logo_light.jpg';
-
+import { ReactComponent as Logo } from '../../logo_dark.svg';
 function Footer() {
+    const color = {
+        backgroundColor: "#171771"
+    };
+
+    const containerStyle = {
+        paddingTop: "1%",
+        paddingBottom:"5%",
+        height: "50px",
+        backgroundColor: "#171771",
+        display: "flex",
+        flexDirection: "column"
+    };
+
+
     return (
         <div>
-            <Navbar bg="dark" variant="light">
-                <Container>
-                    <Navbar.Brand href="/"><img src={logo_light} alt="Logo" /></Navbar.Brand>
+            <Navbar style={color}>
+                <Container style={containerStyle}>
                     <Nav>
-                        <Nav.Link href="/Market">Market</Nav.Link>
-                        <Nav.Link href="/News">News</Nav.Link>
-                        <Nav.Link href="/Leaderboard">Leaderboard</Nav.Link>
-                        <Nav.Link href="/Wallet">Wallet</Nav.Link>
+                        <Nav.Link style={color} href="/Market"><span style={{color: "white"} }>Market</span></Nav.Link>
+                        <Nav.Link style={color} href="/News"><span style={{ color: "white" }}>News</span></Nav.Link>
+                        <Nav.Link style={color} href="/Leaderboard"><span style={{ color: "white" }}>Leaderboard</span></Nav.Link>
+                        <Nav.Link style={color} href="/Wallet"><span style={{ color: "white" }}>Wallet</span></Nav.Link>
                     </Nav>
+                    <p>2021 Cryptics. All rights reserved.</p>
                 </Container>
             </Navbar>
-            <p>2021 Cryptics. All rights reserved.</p>
+            
         </div>);
 }
 export default Footer;

@@ -89,7 +89,7 @@ function GraphDiv(props) {
             <Tabs
                 selectedIndex={index}
                 onSelect={(index) => setIndex(index)}
-                style={{ width: "60%",margin: "0 auto" }}
+                style={{ width: "350" }}
             >
                 <TabList>
                     <Tab>Monthly</Tab>
