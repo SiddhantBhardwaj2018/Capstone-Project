@@ -33,9 +33,9 @@ function Leaderboard() {
         return <div>Loading...</div>;
     } else {
         return (
-           <div>
+           <div className="flex-container" style = {{fontFamily: 'Kanit'}}>
                 <GameDiv />
-           <table>
+            <table className="flex-item" className="p-2 mx-auto">
                 {unames.map(uname => (
                     <tr>
                         <td>
@@ -44,12 +44,10 @@ function Leaderboard() {
                             <p>Profit: {uname.profit}</p>
                             <p>Most Traded Coin: {uname.most_traded_coin}</p>
                             <p>Account Balance: {uname.amount_balance}</p>
-
                         </td>
                     </tr>
                 ))}
                 </table>
-                
             </div>
         );
     }

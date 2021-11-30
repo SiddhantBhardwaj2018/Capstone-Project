@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../Auth';
 import { Link } from 'react-router-dom';
+import Table from 'react-bootstrap/Table';
 
 
 
@@ -40,35 +41,45 @@ function Market() {
         height: "40%"
     }
 
-
+    const innerTablePadding = {
+        paddingTop: "50%"
+    }
 
     if (error) {
         return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
         return <div>Loading...</div>;
     } else {
+        function changeBackground(e) {
+            e.target.style.background = '#D3D3D3';
+        }
+        function revertBackground(e) {
+            e.target.style.background = 'gray';
+        }
         return (
-            <table>
+            <div className = "m-2">
+            <table className = "table" style={innerTablePadding}>
                 <tr>
                     <td></td>
-                    <td><h4>Coin</h4></td>
-                    <td><h4>Price</h4></td>
-                    <td><h4>Price Change in Past 24h</h4></td>
-                    <td><h4>Price Change % in Past 24h</h4></td>
+                    <td><h5 style = {{fontFamily: 'Kanit'}}>Coin</h5></td>
+                    <td><h5 style = {{fontFamily: 'Kanit'}}>Price</h5></td>
+                    <td><h5 style = {{fontFamily: 'Kanit'}}>Price Change in Past 24h</h5></td>
+                    <td><h5 style = {{fontFamily: 'Kanit'}}>Price Change % in Past 24h</h5></td>
                 </tr>
                 {coins.map(coin => (
-                    <tr>
+                    <tr >
                         <td><img style={imageStyle} src={coin.image} /></td>
-                        <td><h3>{coin.name}</h3><h5>{coin.symbol}</h5></td>
-                        <td>{coin.current_price}</td>
-                        <td>{coin.price_change_24h}</td>
-                        <td>{coin.price_change_percentage_24h}</td>
-                        <td><Link to={{ pathname: `/Information`, state: { currency: coin.id } }} target = "_blank" onClick={() => {
+                        <td><h3 style = {{fontFamily: 'Kanit'}}>{coin.name}</h3><h5 style = {{fontFamily: 'Kanit'}}>({coin.symbol})</h5></td>
+                        <td style = {{fontFamily: 'Kanit'}}>{coin.current_price}</td>
+                        <td style = {{fontFamily: 'Kanit'}}>{coin.price_change_24h}</td>
+                        <td style = {{fontFamily: 'Kanit'}}>{coin.price_change_percentage_24h}</td>
+                        <td><button style = {{fontFamily: 'Kanit'}} className=".btn-space btn btn-outline-primary mr-1" ><Link style={{ color: "blue" }} to={{ pathname: `/Information`, state: { currency: coin.id } }} target="_blank" onClick={() => {
                             localStorage.setItem("currency", coin.id)
-                            }}><button> Detail </button></Link></td>
+                        }}> Detail </Link></button></td>
                     </tr>
                 ))}
             </table>
+            </div>
         );
     }
 }

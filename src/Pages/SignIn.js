@@ -5,46 +5,61 @@ import { AuthContext } from '../Auth';
 import app from '../firebase';
 
 function SignIn({ history }) {
-    const  { currentUser } = useContext(AuthContext)
-      
+
     const handleSubmit = useCallback(async event => {
         event.preventDefault();
         const { email, password } = event.target.elements;
-        try{
-            await app.auth().signInWithEmailAndPassword(email.value,password.value);
-            history.push("/Market")
-        }catch(error){
+        try {
+            await app.auth().signInWithEmailAndPassword(email.value, password.value);
+            history.push("/")
+        } catch (error) {
             alert(error)
         }
-    },[history])
-    
-    if(currentUser){
-        return <Redirect to = "/Market" />
+    }, [history])
+
+    const { currentUser } = useContext(AuthContext)
+    if (currentUser) {
+        return <Redirect to="/Market" />
     }
     return (
         <div>
             <form onSubmit={e => { handleSubmit(e) }}>
-                <h3>Welcome back!</h3>
-                <label>Email</label>
+                <div>
+                    <h3 style = {{fontFamily: 'Kanit'}}> Welcome back!</h3>
+                </div>
+                <div className="signin">
+                    <label style = {{fontFamily: 'Kanit'}}>Email</label>
+                </div>
                 <input
-                name='email'
-                type='email'
+                    name='email'
+                    type='email'
+                    placeholder = "John@example.com"
                 />
                 <br />
-                <label>Password</label>
+                <div className="signin">
+                    <label style = {{fontFamily: 'Kanit'}}>Password</label>
+                </div>
                 <input
-                name='password'
-                type='password'
+                    name='password'
+                    type='password'
+                    placeholder = "********"
                 />
                 <br />
-                <button type="submit">Sign In!</button>
+                <br />
+                <div className="button">
+                    <button style = {{fontFamily: 'Kanit'}} className=".btn-space btn btn-outline-primary mr-1" type="submit">Sign In!</button>
+                </div>
             </form>
-            <br/>
-            <label>New for Cryptics?</label>
-            <button><Link to="/SignUp">Sign Up!</Link></button>
             <br />
-            <Link to="/ForgotPassword">Forget Password</Link>
-         </div>
+            <label style = {{fontFamily: 'Kanit'}}>New to Cryptic?</label>
+            <br />
+            <button style = {{fontFamily: 'Kanit'}} className=".btn-space btn btn-outline-primary mr-1"><Link style={{ color: "blue" }} to="/SignUp">Sign Up!</Link></button>
+            <br />
+            <br />
+            <Link style = {{fontFamily: 'Kanit'}} className=".btn-space btn btn-outline-primary mr-1" to="/ForgotPassword" >Forgot Password?</Link>
+            <br />
+            <br />
+        </div>
     )
 }
 export default withRouter(SignIn);
