@@ -51,8 +51,9 @@ function Sentiment() {
         padding: "8px",
         float: "right",
         position: "fixed",
-        top: "28.5%",
-        right: "0"
+        top: "36%",
+        right: "0",
+        transition: "border .2s ease-in-out"
     }
 
     if (error) {

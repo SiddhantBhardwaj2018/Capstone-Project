@@ -64,15 +64,19 @@ function Information(props) {
         const timer = setInterval(updateGetPrice,1000) //While presenting to Meaghan, we can change it to 10 or 15 seconds
         return () => clearInterval(timer)
      },  []);
-
+    const titleDiv = {
+        width: 300,
+        height: 100
+    }
     const coinImageStyle = {
         width: 100,
         height: 100,
         float: "left",
-        borderRadius: "50%",
         marginLeft: "10%",
-        marginTop:"5%"
+        marginTop:"6%"
     };
+
+    
     if (error) {
         return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
@@ -80,11 +84,12 @@ function Information(props) {
     } else {
         let coinInfo = { 'coin': name, 'price': price };
         return (
-           <div>
-                <img src={image} style={coinImageStyle} />
-                <h1>{name}</h1>
-                <h1>{price}</h1>
-                <h1>{changeRate}%</h1>
+            <div>
+                <div style={titleDiv}>
+                    <img src={image} style={coinImageStyle} />
+                    <h1>{name}</h1>
+                    <p>{price} ({changeRate}%)</p>
+                </div>
                 <GraphDiv coin={sessionStorage.coinName}/>
                 <BuySellWidget coinInfo={ coinInfo }/>
            </div>
