@@ -48,6 +48,12 @@ function News() {
         top: "28.5%",
         right: "0"
     }
+
+    const newsHover = {
+        '&:hover': {
+            textDecoration: 'underline'
+        }
+    }
    
 
     if (error) {
@@ -60,7 +66,7 @@ function News() {
                 {/*news*/}
                 <table className="news" style={newsStyle}>
                 {news.map(post => (
-                    <tr style={innerRowStyle}>
+                    <tr style={newsHover}>
                         <td style={innerRowStyle}><a href={post.url} target="_blank" style={{color:"black"}}>{post.title}</a></td>
                         <td><p>Author: {post.redditor}</p>
                         <p>Published Date: {post["published date"]}</p></td>
