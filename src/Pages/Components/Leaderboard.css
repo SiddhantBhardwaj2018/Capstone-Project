@@ -1,0 +1,10 @@
+#leaderboard_card{
+    width: 20rem;
+    height: 20rem;
+    margin: 1rem;
+    box-shadow: 5px 10px 20px 1px #CFB0FF;
+}
+
+#leaderboard_card:hover{
+    box-shadow: 5px 10px 20px 1px #43BEA5;
+}
