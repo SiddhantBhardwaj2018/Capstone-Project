@@ -1,3 +1,63 @@
-@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@300&family=Kanit:ital,wght@1,300&display=swap');
 
 
+/*News Page*/
+.newsTable {
+    border-collapse: collapse;
+    width: 60%;
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+
+.newsRow:hover {
+    background-color: #CFB0FF;
+}
+
+.newsTitle:hover {
+    text-decoration: underline;
+    
+}
+
+/* Wallet Page*/
+
+.transition, .assets {
+    width: 70%;
+    border: 3px solid #ddd;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 8%;
+    margin-bottom: 8%;
+}
+
+
+.transition-head {
+        background-color: #171771;
+        color: white;
+}
+
+.transition-row td {
+    padding: 1%;
+}
+
+.transition-row:hover{
+    background-color: #82A9FD;
+}
+
+
+.assets-head {
+    background-color: #362262;
+    color: white;
+}
+
+.assets-row td {
+    padding: 1%;
+}
+
+.assets-row:hover {
+    background-color: #CFB0FF;
+}
+
+.walletChart {
+    margin-left:auto;
+    margin-right:auto;
+}

@@ -123,8 +123,8 @@ export default function Wallet_Graph() {
   if(portfolio.length > 0){
       return (
           <div>
-              <h1>Portfolio_Valuation: {lastPortfolio.Valuation}</h1>
-              <LineChart data={portfolio} height={250} width={700}>
+              <p>Total Assets: {lastPortfolio.Valuation}</p>
+              <LineChart className="walletChart" data={portfolio} height={250} width={700}>
                 <XAxis dataKey="Time" />
                 <YAxis domain={["dataMin", "dataMax"]} />
                 <Line dataKey="Valuation" />

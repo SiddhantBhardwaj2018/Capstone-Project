@@ -3,9 +3,9 @@ import ReactBootstrapCarousel from "react-bootstrap-carousel";
 import "bootstrap/dist/css/bootstrap.css";
 import "react-bootstrap-carousel/dist/react-bootstrap-carousel.css";
 import Carousel from 'react-bootstrap/Carousel'
-import QuizImage from "../image/Quiz.jpg"
+import QuizImage from "../image/quizGame.png"
 import MemoryGame from "../image/memoryGame.png"
-import SellingImage from "../image/sellingGame.jpg"
+import SellingImage from "../image/tradingGame.png"
 
 function GameDiv() {
     /*const divStyle = {

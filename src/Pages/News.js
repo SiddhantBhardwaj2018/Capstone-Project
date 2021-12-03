@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Sentiment from "./Components/Sentiment";
-
+import '../App.css';
 function News() {
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
@@ -24,18 +24,7 @@ function News() {
             )
     }, [])
     
-    const newsStyle = {
-        fontFamily: "Arial, Helvetica, sans-serif",
-        borderCollapse: "collapse",
-        width: "60%",
-        border: "1px solid #ddd",
-        padding: "8px"
-    }
 
-    const innerRowStyle = {
-        border: "1px solid #ddd",
-        padding: "8px"
-    }
 
     const sentimentStyle = {
         fontFamily: "Arial, Helvetica, sans-serif",
@@ -48,6 +37,7 @@ function News() {
         top: "28.5%",
         right: "0"
     }
+
    
 
     if (error) {
@@ -58,10 +48,10 @@ function News() {
         return (
            <div>
                 {/*news*/}
-                <table className="news" style={newsStyle}>
+                <table className="newsTable">
                 {news.map(post => (
-                    <tr style={innerRowStyle}>
-                        <td style={innerRowStyle}><a href={post.url} target="_blank" style={{color:"black"}}>{post.title}</a></td>
+                    <tr className="newsRow">
+                        <td className="newsTitle"><a href={post.url} target="_blank" style={{color:"black"}}>{post.title}</a></td>
                         <td><p>Author: {post.redditor}</p>
                         <p>Published Date: {post["published date"]}</p></td>
                         {/*

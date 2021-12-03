@@ -65,7 +65,7 @@ function Information(props) {
         return () => clearInterval(timer)
      },  []);
     const titleDiv = {
-        width: 300,
+        width: 490,
         height: 100
     }
     const coinImageStyle = {

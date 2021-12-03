@@ -2,6 +2,9 @@ import React, { useState, useEffect, useContext } from "react";
 import app from "../firebase";
 import Wallet_Graph from "./Wallet_Graph";
 import { AuthContext } from "../Auth";
+import '../App.css';
+import { Tabs, Tab } from 'react-bootstrap-tabs';
+import { Nav, Row, Col } from 'react-bootstrap';
 
 function stringBuilder(coinList) {
   const CoinIds = {
@@ -87,7 +90,8 @@ function Wallet() {
       .then((data) => {
         //setAssets(data.Wallet['assets']);
         //Note: coins const is the coins im using which are different from Sidd's
-        setTransaction_history(data.Wallet["transaction_history"]);
+          setTransaction_history(data.Wallet["transaction_history"]);
+          console.log(transaction_history);
       });
   }, []);
 
@@ -128,7 +132,8 @@ function Wallet() {
             info[data[index].name].portfolio_per =
               info[data[index].name].portfolio_per / valuation;
           }
-          setAssets(info);
+            setAssets(info);
+            console.log(assets);
         });
     }
   }, []);
@@ -142,7 +147,49 @@ function Wallet() {
       return (
         <div>
           <h1>Wallet</h1>
-          <Wallet_Graph />
+              <Wallet_Graph className="walletChart" />
+              
+                                  <table className="transition">
+                                      <tr className="transition-head">
+                                          <td>Method</td>
+                                          <td>Crypto Currency</td>
+                                          <td>Amount of Crypto Currency</td>
+                                          <td>Amount of Virtual Currency</td>
+                                          <td>Market Price (virtual currency/1 Crypto Currency)</td>
+                                          <td>Trading date</td>
+                                      </tr>
+                                      {transaction_history.map(record => (
+                                          <tr className="transition-row">
+                                              <td>{record.method}</td>
+                                              <td>{record.asset}</td>
+                                              <td>{record.amount_of_asset}</td>
+                                              <td>{record.amount_purchased_in_vc}</td>
+                                              <td>{record.market_rate}</td>
+                                              <td style={{ width: "18%" }}>{record.date.map(dateData => (
+                                                  <span>{dateData} </span>))}
+                                              </td>
+                                          </tr>
+                                      ))}
+                                  </table>
+
+
+                                  <table className="assets">
+                                      <tr className="assets-head">
+                                          <td>Crypto Currency</td>
+                                          <td>Amount of Crypto Currency</td>
+                                          <td>Market Price (Virtural Cuurency/1 Crypto Currency)</td>
+                                          <td>Amount of Virtual Currency</td>
+                                      </tr>
+                                      {Object.entries(assets).map(coin => (
+                                          <tr className="assets-row">
+                                              <td>{coin[0]}</td>
+                                              {Object.entries(coin[1]).map(data => (
+                                                  <td>{data[1]}</td>
+                                              ))}
+                                          </tr>
+                                      ))}
+                                  </table>
+              
         </div>
       );
     }else{
