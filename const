@@ -1,0 +1,5 @@
+
+> react-flask-app@0.1.0 start C:\Users\lenovo\Source\Repos\Capstone-Project
+> py -m venv venv && venv\Scripts\activate && react-scripts start "le" "Tab" "=" "ReactBootstrap.Tab"
+
+Terminate batch job (Y/N)? 

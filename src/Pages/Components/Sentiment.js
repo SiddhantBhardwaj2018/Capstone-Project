@@ -51,7 +51,7 @@ function Sentiment() {
         padding: "8px",
         float: "right",
         position: "fixed",
-        top: "36%",
+        top: "40%",
         right: "0",
         transition: "border .2s ease-in-out"
     }
